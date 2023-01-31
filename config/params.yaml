@@ -44,6 +44,7 @@
 # Kobuki lidar: none - lidar
 
 ir_robots:
+  simulation: true
   world: aws_house
   robot: tiago
   robot_position:

@@ -125,6 +125,9 @@ def generate_launch_description():
     tiago_bringup = include_launch_py_description(
         'tiago_bringup', ['launch', 'tiago_bringup.launch.py'])
 
+    kobuki_spawn = include_launch_py_description(
+        'kobuki_description', ['launch', 'spawn.launch.py'])
+
     # tuck_arm = Node(package='tiago_gazebo',
     #                 executable='tuck_arm.py',
     #                 output='both')
@@ -154,7 +157,14 @@ def generate_launch_description():
     ld.add_action(arm_arg)
     ld.add_action(world_name_arg)
     ld.add_action(gazebo)
-    ld.add_action(tiago_spawn)
-    ld.add_action(tiago_bringup)
 
+    robot_name = conf['ir_robots']['robot']
+    if 'tiago' in robot_name:
+        ld.add_action(tiago_spawn)
+        ld.add_action(tiago_bringup)
+    elif 'kobuki' in robot_name:
+        ld.add_action(kobuki_spawn)
+    else:
+        print(robot_name + ' NOT FOUND')
+    
     return ld
