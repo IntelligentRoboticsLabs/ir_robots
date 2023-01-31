@@ -41,7 +41,7 @@
 #
 # Robot: tiago - kobuki
 # Kobuki camera: none - xtion - astra
-# Kobuki lidar: none - lidar
+# Kobuki lidar: true - false
 
 ir_robots:
   simulation: true
@@ -55,4 +55,4 @@ ir_robots:
     pitch: 0.0
     yaw: 0.0
   kobuki_camera: none
-  kobuki_lidar: none
+  kobuki_lidar: false
