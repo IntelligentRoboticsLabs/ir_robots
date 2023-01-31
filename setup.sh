@@ -19,7 +19,9 @@ mkdir build && cd build
 cmake .. && make -j4
 sudo make install
 sudo ldconfig
-cd ../..
+cd ..
+touch COLCON_IGNORE
+cd ..
 
 # Install magic_enum
 wget -c https://github.com/Neargye/magic_enum/archive/refs/tags/v0.8.0.tar.gz -O  magic_enum-0.8.0.tar.gz
@@ -30,7 +32,9 @@ mkdir build && cd build
 cmake .. && make -j4
 sudo make install
 sudo ldconfig
-cd ../..
+cd ..
+touch COLCON_IGNORE
+cd ..
 
 # Install libuvc
 git clone https://github.com/libuvc/libuvc.git
@@ -39,17 +43,19 @@ mkdir build && cd build
 cmake .. && make -j4
 sudo make install
 sudo ldconfig
+cd ..
+touch COLCON_IGNORE
 cd ../..
 
 # Install libusb rules from astra camera, kobuki and rplidar
-sudo cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.rules /etc/udev/rules.d/56-orbbec-usb.rules
-sudo cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/rplidar.rules
-sudo cp src/ThirdParty/kobuki_ftdi/60-kobuki.rules /etc/udev/rules.d/60-kobuki.rules
+cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.rules /etc/udev/rules.d/
+cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/
+cp src/ThirdParty/kobuki_ftdi/60-kobuki.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
 
 # Move kobuki model to GAZEBO_MODEL_PATH
 mkdir -p ~/.gazebo/models/kobuki_description
-cp -r src/ThirParty/kobuki_ros/kobuki_description/meshes ~/.gazebo/models/kobuki_description/meshes
+cp -r src/ThirdParty/kobuki_ros/kobuki_description/meshes ~/.gazebo/models/kobuki_description/meshes
 
 # Building project
 sudo rosdep init
