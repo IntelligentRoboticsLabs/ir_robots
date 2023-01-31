@@ -91,7 +91,7 @@ def generate_launch_description():
                               'use_lifecycle_mgr': 'false'}.items()),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'navigation_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'dependencies', 'navigation_launch.py')),
             launch_arguments={'use_sim_time': use_sim_time,
                               'autostart': autostart,
                               'params_file': params_file,

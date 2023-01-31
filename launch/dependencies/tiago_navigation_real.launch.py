@@ -137,7 +137,7 @@ def generate_launch_description():
                               'container_name': 'nav2_container'}.items())
 
     nav_cmd = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'navigation_launch_real.py')),
+            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'dependencies', 'navigation_launch_real.py')),
             launch_arguments={'use_sim_time': use_sim_time,
                               'autostart': autostart,
                               'params_file': params_file,
