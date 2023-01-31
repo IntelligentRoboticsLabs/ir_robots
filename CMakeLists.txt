@@ -4,7 +4,7 @@ project(ir_robots)
 # find dependencies
 find_package(ament_cmake REQUIRED)
 
-install(DIRECTORY launch config params maps launch/dependencies
+install(DIRECTORY launch config params maps
         DESTINATION share/${PROJECT_NAME})
 
 ament_package()
