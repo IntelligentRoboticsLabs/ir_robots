@@ -27,9 +27,9 @@ from launch_ros.actions import Node
 import yaml
 
 def generate_launch_description():
-    ir_kobuki_dir = get_package_share_directory('ir_kobuki')
+    ir_robots_dir = get_package_share_directory('ir_robots')
 
-    params_file = os.path.join(ir_kobuki_dir, 'config', 'kobuki_node_params.yaml')
+    params_file = os.path.join(ir_robots_dir, 'config', 'kobuki_node_params.yaml')
     with open(params_file, 'r') as f:
         kobuki_params = yaml.safe_load(f)['kobuki_ros_node']['ros__parameters']
 
