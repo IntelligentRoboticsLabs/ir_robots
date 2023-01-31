@@ -27,7 +27,7 @@ from launch.substitutions import LaunchConfiguration, PythonExpression
 
 def generate_launch_description():
     # Get the launch directory
-    cv_dir = get_package_share_directory('computer_vision')
+    robots_dir = get_package_share_directory('ir_robots')
     bringup_dir = get_package_share_directory('nav2_bringup')
     launch_dir = os.path.join(bringup_dir, 'launch')
 
@@ -62,7 +62,7 @@ def generate_launch_description():
         default_value='False',
         description='Whether run a SLAM')
 
-    config = os.path.join(cv_dir, 'config', 'params.yaml')
+    config = os.path.join(robots_dir, 'config', 'params.yaml')
 
     with open(config, "r") as stream:
         try:
@@ -73,7 +73,7 @@ def generate_launch_description():
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
-        default_value=os.path.join(cv_dir, 'maps', conf['computer_vision']['world']+'.yaml'),
+        default_value=os.path.join(robots_dir, 'maps', conf['ir_robots']['world']+'.yaml'),
         description='Full path to map yaml file to load')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -83,7 +83,7 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
         'params_file',
-        default_value=os.path.join(cv_dir, 'params', 'tiago_nav_params_real.yaml'),
+        default_value=os.path.join(robots_dir, 'params', 'tiago_nav_params_real.yaml'),
         description='Full path to the ROS2 parameters file to use for all launched nodes')
 
     declare_autostart_cmd = DeclareLaunchArgument(
@@ -137,7 +137,7 @@ def generate_launch_description():
                               'container_name': 'nav2_container'}.items())
 
     nav_cmd = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(cv_dir, 'launch', 'navigation_launch_real.py')),
+            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'navigation_launch_real.py')),
             launch_arguments={'use_sim_time': use_sim_time,
                               'autostart': autostart,
                               'params_file': params_file,

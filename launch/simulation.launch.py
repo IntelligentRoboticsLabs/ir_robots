@@ -52,9 +52,9 @@ def get_resource_paths(packages_names):
 
 
 def generate_launch_description():
-    cv_dir = get_package_share_directory('computer_vision')
+    robots_dir = get_package_share_directory('ir_robots')
 
-    config = os.path.join(cv_dir, 'config', 'params.yaml')
+    config = os.path.join(robots_dir, 'config', 'params.yaml')
 
     with open(config, "r") as stream:
         try:
@@ -68,7 +68,7 @@ def generate_launch_description():
         description='Tiago arm'
     )
 
-    world_name = conf['computer_vision']['world']
+    world_name = conf['ir_robots']['world']
     world_name_arg = DeclareLaunchArgument(
         'world_name', default_value=world_name,
         description='World name'
@@ -120,7 +120,7 @@ def generate_launch_description():
 
 
     tiago_spawn = include_launch_py_description(
-        'computer_vision', ['launch', 'tiago_spawn.launch.py'])
+        'ir_robots', ['launch', 'dependencies', 'tiago_spawn.launch.py'])
 
     tiago_bringup = include_launch_py_description(
         'tiago_bringup', ['launch', 'tiago_bringup.launch.py'])

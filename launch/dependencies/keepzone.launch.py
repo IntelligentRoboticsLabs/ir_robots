@@ -29,7 +29,7 @@ from nav2_common.launch import RewrittenYaml
 
 def generate_launch_description():
     # Get the launch directory
-    cv_dir = get_package_share_directory('computer_vision')
+    robots_dir = get_package_share_directory('ir_robots')
 
     # Create our own temporary YAML files that include substitutions
     lifecycle_nodes = ['filter_mask_server', 'costmap_filter_info_server']
@@ -58,12 +58,12 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
             'params_file',
-            default_value=os.path.join(cv_dir, 'params', 'keepout_params.yaml'),
+            default_value=os.path.join(robots_dir, 'params', 'keepout_params.yaml'),
             description='Full path to the ROS2 parameters file to use')
 
-    cv_dir = get_package_share_directory('computer_vision')
+    robots_dir = get_package_share_directory('ir_robots')
 
-    config = os.path.join(cv_dir, 'config', 'params.yaml')
+    config = os.path.join(robots_dir, 'config', 'params.yaml')
 
     with open(config, "r") as stream:
         try:
@@ -74,7 +74,7 @@ def generate_launch_description():
 
     declare_mask_yaml_file_cmd = DeclareLaunchArgument(
             'mask',
-            default_value=os.path.join(cv_dir, 'maps', conf['computer_vision']['world']+'_keep.yaml'),
+            default_value=os.path.join(robots_dir, 'maps', conf['ir_robots']['world']+'_keep.yaml'),
             description='Full path to filter mask yaml file to load')
 
     # Make re-written yaml
