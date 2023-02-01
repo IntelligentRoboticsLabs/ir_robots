@@ -1,49 +1,103 @@
-# Computer Vision using ROS2
+# Robots from the Intelligent Robotics Lab using ROS 2
 
-This project contains code examples created in Visual Studio Code for Computer Vision using C++ & OpenCV & Point Cloud Library (PCL) using ROS2. These examples are created for the Computer Vision Subject of Robotics Software Engineering Degree at URJC.
+This project contains the launchers to run the Tiago robot from [PAL Robotics](https://github.com/pal-robotics) and [Turtlebot2 Kobuki](https://github.com/kobuki-base), both in simulated running different Gazebo worlds, including the [AWS Robomaker](https://github.com/aws-robotics) worlds, as in the real robot using its drivers.
 
-This package allows running different Gazebo worlds, including the [AWS Robomaker](https://github.com/aws-robotics) worlds, using the Tiago robot from [PAL Robotics](https://github.com/pal-robotics)
-
-
-# Installation
+# Installation on your own computer 
 
 Source your ROS2 distro:
 ```bash
 source /opt/ros/<ros2-distro>/setup.bash
 ```
 
+Prepare your thirparty repos:
+```bash
+sudo apt update
+sudo apt install python3-vcstool python3-pip python3-rosdep python3-colcon-common-extensions -y
+vcs import < thirdparty.repos
+```
+
 Execute installation script:
 ```bash
 ./setup.sh
-``` 
+```
 
-# Run Gazebo & Tiago in ROS2
+# Installation in the laboratories of the university
 
+**TO DO**
+
+# Run Gazebo & robot in ROS2
+
+Modify `config/params.yaml` to select the robot (kobuki/tiago), select the world and starting positions:
+```yaml
+...
+ir_robots:
+  simulation: true
+  world: aws_house
+  robot: kobuki
+  robot_position:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  kobuki_camera: none
+  kobuki_lidar: false
+...
+```
+*Currently it is not possible to select the initial position of the kobuki. Will be implemented in future versions*
+
+Then, launch your simulation environment:
 ```bash
 source install/setup.sh
-ros2 launch computer_vision simulation.launch.py
+ros2 launch ir_robots simulation.launch.py
 ``` 
-
-To change the Gazebo world or the initial position/rotation of the Tiago robot, you can modify the `config/params.yaml` file.
 
 If you have a low performance, close the Gazebo's client. Check gzclient process, and kill it:
 ```bash
 kill -9 `pgrep -f gzclient`
 ``` 
 
-# Run Navigation in ROS2
+# Run a real kobuki in ROS 2
+
+First, modify `config/params.yaml` to use kobuki, if you are using camara (xtion/astra/none) and if you are using lidar (true/false)
+```yaml
+...
+ir_robots:
+  simulation: true
+  world: aws_house
+  robot: kobuki
+  robot_position:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  kobuki_camera: astra
+  kobuki_lidar: true
+...
+```
+
+Then, run the kobuki drivers:
+```bash
+source install/setup.sh
+ros2 launch ir_robots kobuki.launch.py
+``` 
+
+# Run Tiago Navigation in ROS 2
 
 You can use [Nav2] using Tiago in the selected world:
 
 ```bash
 source install/setup.sh
-ros2 launch computer_vision tiago_navigation.launch.py
+ros2 launch ir_robots tiago_navigation.launch.py
 ``` 
 Also, you can use [Keepout Zones], just create a new map including the excluded areas, and use the same name adding `_keep`, now publish the map running:
 
 ```bash
 source install/setup.sh
-ros2 launch computer_vision keepzone.launch.py
+ros2 launch ir_robots keepzone.launch.py
 ``` 
 
 Just some AWS worlds are included. You can [Navigate While Mapping] and create your own map using the [SLAM Toolbox] provided. In different terminals:
@@ -73,33 +127,9 @@ rviz2 --ros-args -p use_sim_time:=true
 ros2 run nav2_map_server map_saver_cli --ros-args -p use_sim_time:=true
 ```
 
-# Run examples in ROS2
-
-* OpenCV node
-```bash
-source install/setup.sh
-ros2 run computer_vision cv_node
-``` 
-
-* PCL node
-```bash
-source install/setup.sh
-ros2 run computer_vision pcl_node
-``` 
-
-* OpenCV & PCL node
-```bash
-source install/setup.sh
-ros2 run computer_vision cv_pcl_node
-``` 
-
-# Help
-
-You can check the `commands` file to run other nodes, such as `key_teleop` to move Tiago using your keyboard.
-
 ## About
 
-This is a project made by [José Miguel Guerrero], Assistant Professor at [Universidad Rey Juan Carlos].
+This is a project made by [José Miguel Guerrero], Associate Professor at [Universidad Rey Juan Carlos].
 Copyright &copy; 2022.
 
 [![Twitter](https://img.shields.io/badge/follow-@jm__guerrero-green.svg)](https://twitter.com/jm__guerrero)
