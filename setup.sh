@@ -53,6 +53,10 @@ cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/
 cp src/ThirdParty/kobuki_ftdi/60-kobuki.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
 
+# Move xtion calibration
+mkdir -p ~/.ros/camera_info
+cp src/ThirdParty/openni2_camera/openni2_camera/rgb_PS1080_PrimeSense ~/.ros/camera_info
+
 # Move kobuki model to GAZEBO_MODEL_PATH
 mkdir -p ~/.gazebo/models/kobuki_description
 cp -r src/ThirdParty/kobuki_ros/kobuki_description/meshes ~/.gazebo/models/kobuki_description/meshes
