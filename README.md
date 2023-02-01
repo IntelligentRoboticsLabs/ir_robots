@@ -129,10 +129,15 @@ ros2 run nav2_map_server map_saver_cli --ros-args -p use_sim_time:=true
 
 ## About
 
-This is a project made by [José Miguel Guerrero], Associate Professor at [Universidad Rey Juan Carlos].
+This is a project made by the [Intelligent Robotics Lab], a research group from the [Universidad Rey Juan Carlos].
 Copyright &copy; 2022.
 
-[![Twitter](https://img.shields.io/badge/follow-@jm__guerrero-green.svg)](https://twitter.com/jm__guerrero)
+Maintainers:
+
+* [José Miguel Guerrero]
+* [Juan Carlos Manzanares]
+* [Francisco Martín]
+
 
 ## License
 
@@ -151,7 +156,10 @@ This work is licensed under a
 
 
 [Universidad Rey Juan Carlos]: https://www.urjc.es/
+[Intelligent Robotics Lab]: https://intelligentroboticslab.gsyc.urjc.es/
 [José Miguel Guerrero]: https://sites.google.com/view/jmguerrero
+[Juan Carlos Manzanares]: https://github.com/Juancams
+[Francisco Martín]: https://github.com/fmrico
 [Nav2]: https://navigation.ros.org/
 [Keepout Zones]: https://navigation.ros.org/tutorials/docs/navigation2_with_keepout_filter.html?highlight=keep
 [SLAM Toolbox]: https://vimeo.com/378682207
