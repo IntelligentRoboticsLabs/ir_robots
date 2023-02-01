@@ -48,14 +48,14 @@ touch COLCON_IGNORE
 cd ../..
 
 # Install libusb rules from astra camera, kobuki and rplidar
-cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.rules /etc/udev/rules.d/
-cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/
-cp src/ThirdParty/kobuki_ftdi/60-kobuki.rules /etc/udev/rules.d/
+sudo cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.rules /etc/udev/rules.d/
+sudo cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/
+sudo cp src/ThirdParty/kobuki_ftdi/60-kobuki.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
 
 # Move xtion calibration
 mkdir -p ~/.ros/camera_info
-cp src/ThirdParty/openni2_camera/openni2_camera/rgb_PS1080_PrimeSense ~/.ros/camera_info
+cp src/ThirdParty/openni2_camera/openni2_camera/rgb_PS1080_PrimeSense.yaml ~/.ros/camera_info
 
 # Move kobuki model to GAZEBO_MODEL_PATH
 mkdir -p ~/.gazebo/models/kobuki_description
