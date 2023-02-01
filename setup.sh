@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Installing ThirdParty repos
-sudo apt update
-sudo apt install python3-vcstool python3-pip python3-rosdep python3-colcon-common-extensions -y
-vcs import < thirdparty.repos
-
 # Prepare other repos
 cd ../..
 mkdir repos
