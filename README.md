@@ -129,7 +129,7 @@ ros2 run nav2_map_server map_saver_cli --ros-args -p use_sim_time:=true
 
 ## About
 
-This is a project made by [José Miguel Guerrero], Assistant Professor at [Universidad Rey Juan Carlos].
+This is a project made by [José Miguel Guerrero], Associate Professor at [Universidad Rey Juan Carlos].
 Copyright &copy; 2022.
 
 [![Twitter](https://img.shields.io/badge/follow-@jm__guerrero-green.svg)](https://twitter.com/jm__guerrero)
