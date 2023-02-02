@@ -22,8 +22,14 @@ Execute installation script:
 ```
 
 # Installation in the laboratories of the university
+In the computers of the university laboratories you will already have all the ros 2 packages installed, so you will not have to install tools or dependencies. With the following script you will prepare some packages to be able to compile the workspace correctly and be able to simulate the environment.
 
-**TO DO**
+```bash
+source /opt/ros/<ros2-distro>/setup.bash
+vcs import < thirdparty.repos
+./setup_laboratory.sh
+```
+*Remember that in the laboratories you will only be able to run the simulation of the environment with the different robots, you will not be able to use it on a real robot.*
 
 # Run Gazebo & robot in ROS2
 
