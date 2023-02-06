@@ -3,8 +3,10 @@
 # COLCON_IGNORE astra camera
 touch ../ThirdParty/ros_astra_camera/astra_camera/COLCON_IGNORE
 touch ../ThirdParty/ros_astra_camera/astra_camera_msgs/COLCON_IGNORE
+touch ../ThirdParty/kobuki_ftdi/COLCON_IGNORE
 
 # Move kobuki model to GAZEBO_MODEL_PATH
+cd ../..
 mkdir -p ~/.gazebo/models/kobuki_description
 cp -r src/ThirdParty/kobuki_ros/kobuki_description/meshes ~/.gazebo/models/kobuki_description/meshes
 
