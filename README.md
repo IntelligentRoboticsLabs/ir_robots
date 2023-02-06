@@ -3,6 +3,11 @@
 This project contains the launchers to run the Tiago robot from [PAL Robotics](https://github.com/pal-robotics) and [Turtlebot2 Kobuki](https://github.com/kobuki-base), both in simulated running different Gazebo worlds, including the [AWS Robomaker](https://github.com/aws-robotics) worlds, as in the real robot using its drivers.
 
 # Installation on your own computer 
+Clone the repository to your workspace:
+```bash
+cd <ros2-workspace>/src
+git clone https://github.com/IntelligentRoboticsLabs/ir_robots.git
+```
 
 Source your ROS2 distro:
 ```bash
@@ -27,6 +32,8 @@ Execute installation script:
 In the computers of the university laboratories you will already have all the ros 2 packages installed, so you will not have to install tools or dependencies. With the following script you will prepare some packages to be able to compile the workspace correctly and be able to simulate the environment.
 
 ```bash
+cd <ros2-workspace>/src
+git clone https://github.com/IntelligentRoboticsLabs/ir_robots.git
 source /opt/ros/<ros2-distro>/setup.bash
 vcs import < thirdparty.repos
 ./setup_laboratory.sh
