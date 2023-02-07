@@ -2,31 +2,124 @@
 
 This project contains the launchers to run the Tiago robot from [PAL Robotics](https://github.com/pal-robotics) and [Turtlebot2 Kobuki](https://github.com/kobuki-base), both in simulated running different Gazebo worlds, including the [AWS Robomaker](https://github.com/aws-robotics) worlds, as in the real robot using its drivers.
 
-# Installation on your own computer 
+**Recommended: use [Eclipse Cyclone DDS](https://docs.ros.org/en/foxy/Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html). Add it to your `.bashrc`**
+
+# Installation on your own computer
+You need to have previously installed ROS2. Please follow this [guide](https://docs.ros.org/en/humble/Installation.html) if you don't have it.
+```bash
+source /opt/ros/humble/setup.bash
+```
+
 Clone the repository to your workspace:
 ```bash
 cd <ros2-workspace>/src
 git clone https://github.com/IntelligentRoboticsLabs/ir_robots.git
 ```
 
-Source your ROS2 distro:
-```bash
-source /opt/ros/<ros2-distro>/setup.bash
-```
-
 Prepare your thirparty repos:
 ```bash
 sudo apt update
 sudo apt install python3-vcstool python3-pip python3-rosdep python3-colcon-common-extensions -y
+cd <ros2-workspace>/src/ir_robots
 vcs import < thirdparty.repos
 ```
+*Please make sure that this last command has not failed.*
 
-Execute installation script:
+## Manual installation (recommended)
+Prepare a folder where you will compile necessary libraries for some packages:
 ```bash
-./setup.sh
+cd <ros2-workspace>
+mkdir repos && cd repos
 ```
 
-**Recommended: use [Eclipse Cyclone DDS](https://docs.ros.org/en/foxy/Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html). Add it to your `.bashrc`**
+### Install glog
+```bash
+cd <ros2-workspace>/repos
+wget -c https://github.com/google/glog/archive/refs/tags/v0.6.0.tar.gz  -O glog-0.6.0.tar.gz
+tar -xzvf glog-0.6.0.tar.gz
+rm -rf glog-0.6.0.tar.gz
+cd glog-0.6.0
+mkdir build && cd build
+cmake .. && make -j4
+sudo make install
+sudo ldconfig
+cd ..
+touch COLCON_IGNORE
+```
+
+### Install magic_enum
+```bash
+cd <ros2-workspace>/repos
+wget -c https://github.com/Neargye/magic_enum/archive/refs/tags/v0.8.0.tar.gz -O  magic_enum-0.8.0.tar.gz
+tar -xzvf magic_enum-0.8.0.tar.gz
+rm -rf magic_enum-0.8.0.tar.gz
+cd magic_enum-0.8.0
+mkdir build && cd build
+cmake .. && make -j4
+sudo make install
+sudo ldconfig
+cd ..
+touch COLCON_IGNORE
+```
+
+### Install libuvc
+```bash
+cd <ros2-workspace>/repos
+git clone https://github.com/libuvc/libuvc.git
+cd libuvc
+mkdir build && cd build
+cmake .. && make -j4
+sudo make install
+sudo ldconfig
+cd ..
+touch COLCON_IGNORE
+```
+
+### Install libusb rules from astra camera, kobuki and rplidar
+When you connect a piece of hardware to your pc, it assigns `/dev/ttyUSB*` to it. This will not have the necessary read/write permissions, so we will not be able to use it correctly. The solution is to set up some udev rules that creates a symlink with another name (example: `/dev/ttyUSB0` -> `/dev/kobuki`) and grants it the necessary permissions.
+```bash
+sudo cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.rules /etc/udev/rules.d/
+sudo cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/
+sudo cp src/ThirdParty/kobuki_ftdi/60-kobuki.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+
+### Move xtion calibration
+Some cameras need a calibration file where they indicate, for example, their resolution, name, etc...
+```bash
+mkdir -p ~/.ros/camera_info
+cp <ros2-workspace>/src/ThirdParty/openni2_camera/openni2_camera/rgb_PS1080_PrimeSense.yaml ~/.ros/camera_info
+```
+
+### Move kobuki model to GAZEBO_MODEL_PATH
+Our gazebo simulation environment has a path configured where it will search for all the necessary models. To do this, we need to move our kobuki models to the configured path.
+```bash
+mkdir -p ~/.gazebo/models/kobuki_description
+cp -r src/ThirdParty/kobuki_ros/kobuki_description/meshes ~/.gazebo/models/kobuki_description/meshes
+```
+
+### Building project
+```bash
+sudo rosdep init
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF
+```
+*For this build we use `--cmake-args -DBUILD_TESTING=OFF` to avoid compiling our tests as well and save time. It is recommended to compile later without this flag.*
+
+### Setup Gazebo to find models - GAZEBO_MODEL_PATH and project path
+```bash
+source /usr/share/gazebo/setup.bash
+source <ros2-workspace>/install/setup.bash
+```
+*It is recommended to add these two lines inside your `.bashrc` to avoid having to run it every time you open a new shell*
+
+## Automatic installation (not recommended)
+Execute installation script. This script can only be executed once.
+```bash
+cd <ros2-workspace>/src/ir_robots
+./setup.sh
+```
 
 # Installation in the laboratories of the university
 In the computers of the university laboratories you will already have all the ros 2 packages installed, so you will not have to install tools or dependencies. With the following script you will prepare some packages to be able to compile the workspace correctly and be able to simulate the environment.
@@ -39,8 +132,6 @@ vcs import < thirdparty.repos
 ./setup_laboratory.sh
 ```
 *Remember that in the laboratories you will only be able to run the simulation of the environment with the different robots, you will not be able to use it on a real robot.*
-
-**Recommended: use [Eclipse Cyclone DDS](https://docs.ros.org/en/foxy/Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html). Add it to your `.bashrc`**
 
 # Run Gazebo & robot in ROS2
 
