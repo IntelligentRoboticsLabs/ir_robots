@@ -23,7 +23,7 @@ sudo apt install python3-vcstool python3-pip python3-rosdep python3-colcon-commo
 cd <ros2-workspace>/src/ir_robots
 vcs import < thirdparty.repos
 ```
-*Please make sure that this last command has not failed.*
+*Please make sure that this last command has not failed. If this happens, run it again.*
 
 ## Manual installation (recommended)
 Prepare a folder where you will compile necessary libraries for some packages:
