@@ -42,6 +42,9 @@ cd ..
 touch COLCON_IGNORE
 cd ../..
 
+# Install libusb & libftdi
+sudo apt install libusb-1.0-0-dev libftdi1-dev
+
 # Install libusb rules from astra camera, kobuki and rplidar
 sudo cp src/ThirdParty/ros_astra_camera/astra_camera/scripts/56-orbbec-usb.rules /etc/udev/rules.d/
 sudo cp src/ThirdParty/rplidar_ros/scripts/rplidar.rules /etc/udev/rules.d/
