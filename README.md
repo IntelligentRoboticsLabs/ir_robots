@@ -75,6 +75,11 @@ cd ..
 touch COLCON_IGNORE
 ```
 
+### Install libusb & libftdi
+```bash
+sudo apt install libusb-1.0-0-dev libftdi1-dev
+```
+
 ### Install libusb rules from astra camera, kobuki and rplidar
 When you connect a piece of hardware to your pc, it assigns `/dev/ttyUSB*` to it. This will not have the necessary read/write permissions, so we will not be able to use it correctly. The solution is to set up some udev rules that creates a symlink with another name (example: `/dev/ttyUSB0` -> `/dev/kobuki`) and grants it the necessary permissions.
 ```bash
