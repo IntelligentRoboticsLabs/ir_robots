@@ -55,10 +55,6 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 mkdir -p ~/.ros/camera_info
 cp src/ThirdParty/openni2_camera/openni2_camera/rgb_PS1080_PrimeSense.yaml ~/.ros/camera_info
 
-# Move kobuki model to GAZEBO_MODEL_PATH
-mkdir -p ~/.gazebo/models/kobuki_description
-cp -r src/ThirdParty/kobuki_ros/kobuki_description/meshes ~/.gazebo/models/kobuki_description/meshes
-
 # Building project
 sudo rosdep init
 rosdep update
@@ -67,8 +63,12 @@ colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF
 
 # Setup Gazebo to find models - GAZEBO_MODEL_PATH
 source /usr/share/gazebo/setup.bash
-echo "source /usr/share/gazebo/setup.bash" >> ~/.bashrc
+if ! grep -q "source /usr/share/gazebo/setup.bash" ~/.bashrc; then echo "source /usr/share/gazebo/setup.bash" >> ~/.bashrc; fi
 
 # Project's path
 source install/setup.bash
-echo "source "${PWD}"/install/setup.bash" >> ~/.bashrc
+if ! grep -q "source "${PWD}"/install/setup.bash" ~/.bashrc; then echo "source "${PWD}"/install/setup.bash" >> ~/.bashrc; fi
+
+# Setup CycloneDDS
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+if ! grep -q "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" ~/.bashrc; then echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc; fi

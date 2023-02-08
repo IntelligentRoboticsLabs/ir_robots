@@ -2,7 +2,8 @@
 
 This project contains the launchers to run the Tiago robot from [PAL Robotics](https://github.com/pal-robotics) and [Turtlebot2 Kobuki](https://github.com/kobuki-base), both in simulated running different Gazebo worlds, including the [AWS Robomaker](https://github.com/aws-robotics) worlds, as in the real robot using its drivers.
 
-**Recommended: use [Eclipse Cyclone DDS](https://docs.ros.org/en/foxy/Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html). Add it to your `.bashrc`**
+**Recommended: use [Eclipse Cyclone DDS](https://docs.ros.org/en/foxy/Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html). 
+You can do this by installing it with `sudo apt install ros-humble-rmw-cyclonedds-cpp` and setting the `RMW_IMPLEMENTATION` environment variable: `export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp`. Add it to your `.bashrc`**
 
 # Installation on your own computer
 You need to have previously installed ROS2. Please follow this [guide](https://docs.ros.org/en/humble/Installation.html) if you don't have it.
@@ -97,13 +98,6 @@ mkdir -p ~/.ros/camera_info
 cp <ros2-workspace>/src/ThirdParty/openni2_camera/openni2_camera/rgb_PS1080_PrimeSense.yaml ~/.ros/camera_info
 ```
 
-### Move kobuki model to GAZEBO_MODEL_PATH
-Our gazebo simulation environment has a path configured where it will search for all the necessary models. To do this, we need to move our kobuki models to the configured path.
-```bash
-mkdir -p ~/.gazebo/models/kobuki_description
-cp -r src/ThirdParty/kobuki_ros/kobuki_description/meshes ~/.gazebo/models/kobuki_description/meshes
-```
-
 ### Building project
 ```bash
 sudo rosdep init
@@ -112,6 +106,7 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF
 ```
 *For this build we use `--cmake-args -DBUILD_TESTING=OFF` to avoid compiling our tests as well and save time. It is recommended to compile later without this flag.*
+
 
 ### Setup Gazebo to find models - GAZEBO_MODEL_PATH and project path
 ```bash
