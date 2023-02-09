@@ -17,6 +17,15 @@ cd <ros2-workspace>/src
 git clone https://github.com/IntelligentRoboticsLabs/ir_robots.git
 ```
 
+## Automatic installation (recommended)
+Execute installation script.
+```bash
+cd <ros2-workspace>/src/ir_robots
+./setup.sh
+```
+
+## Manual installation
+
 Prepare your thirparty repos:
 ```bash
 sudo apt update
@@ -26,7 +35,6 @@ vcs import < thirdparty.repos
 ```
 *Please make sure that this last command has not failed. If this happens, run it again.*
 
-## Manual installation (recommended)
 Prepare a folder where you will compile necessary libraries for some packages:
 ```bash
 cd <ros2-workspace>
@@ -115,13 +123,6 @@ source <ros2-workspace>/install/setup.bash
 ```
 *It is recommended to add these two lines inside your `.bashrc` to avoid having to run it every time you open a new shell*
 
-## Automatic installation (not recommended)
-Execute installation script. This script can only be executed once.
-```bash
-cd <ros2-workspace>/src/ir_robots
-./setup.sh
-```
-
 # Installation in the laboratories of the university
 In the computers of the university laboratories you will already have all the ros 2 packages installed, so you will not have to install tools or dependencies. With the following script you will prepare some packages to be able to compile the workspace correctly and be able to simulate the environment.
 
@@ -129,7 +130,6 @@ In the computers of the university laboratories you will already have all the ro
 cd <ros2-workspace>/src
 git clone https://github.com/IntelligentRoboticsLabs/ir_robots.git
 source /opt/ros/<ros2-distro>/setup.bash
-vcs import < thirdparty.repos
 ./setup_laboratory.sh
 ```
 *Remember that in the laboratories you will only be able to run the simulation of the environment with the different robots, you will not be able to use it on a real robot.*

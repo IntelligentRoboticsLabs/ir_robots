@@ -1,4 +1,15 @@
 #!/bin/bash
+RED=`tput setaf 9 blink`
+
+# Installing ThirdParty repos
+sudo apt update
+sudo apt install python3-vcstool python3-pip python3-rosdep python3-colcon-common-extensions -y
+
+OUTPUT=$(vcs import < thirdparty.repos | tee >(head -n 1) | tee >(cat >&2) | head -n 1)
+if echo "$OUTPUT" | grep -q "E"; then
+  echo -e "\n${RED}Error downloading thridparty repos: please check the URLs or connection and re-run this script\n\033[0;33m"
+  exit 1
+fi
 
 # Prepare other repos
 cd ../..
@@ -10,7 +21,8 @@ wget -c https://github.com/google/glog/archive/refs/tags/v0.6.0.tar.gz  -O glog-
 tar -xzvf glog-0.6.0.tar.gz
 rm -rf glog-0.6.0.tar.gz
 cd glog-0.6.0
-mkdir build && cd build
+mkdir build
+cd build
 cmake .. && make -j4
 sudo make install
 sudo ldconfig
@@ -23,7 +35,8 @@ wget -c https://github.com/Neargye/magic_enum/archive/refs/tags/v0.8.0.tar.gz -O
 tar -xzvf magic_enum-0.8.0.tar.gz
 rm -rf magic_enum-0.8.0.tar.gz
 cd magic_enum-0.8.0
-mkdir build && cd build
+mkdir build 
+cd build
 cmake .. && make -j4
 sudo make install
 sudo ldconfig
@@ -34,7 +47,8 @@ cd ..
 # Install libuvc
 git clone https://github.com/libuvc/libuvc.git
 cd libuvc
-mkdir build && cd build
+mkdir build 
+cd build
 cmake .. && make -j4
 sudo make install
 sudo ldconfig
@@ -71,5 +85,6 @@ source install/setup.bash
 if ! grep -q "source "${PWD}"/install/setup.bash" ~/.bashrc; then echo "source "${PWD}"/install/setup.bash" >> ~/.bashrc; fi
 
 # Setup CycloneDDS
+sudo apt install ros-humble-rmw-cyclonedds-cpp -y
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 if ! grep -q "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" ~/.bashrc; then echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc; fi
