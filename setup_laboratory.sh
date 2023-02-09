@@ -13,6 +13,7 @@ source /usr/share/gazebo/setup.bash
 if ! grep -q "source /usr/share/gazebo/setup.bash" ~/.bashrc; then echo "source /usr/share/gazebo/setup.bash" >> ~/.bashrc; fi
 
 # Project's path
+cd ../..
 source install/setup.bash
 if ! grep -q "source "${PWD}"/install/setup.bash" ~/.bashrc; then echo "source "${PWD}"/install/setup.bash" >> ~/.bashrc; fi
 
