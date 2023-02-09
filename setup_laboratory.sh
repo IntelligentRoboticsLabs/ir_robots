@@ -17,6 +17,7 @@ touch ../ThirdParty/ros_astra_camera/astra_camera_msgs/COLCON_IGNORE
 touch ../ThirdParty/kobuki_ftdi/COLCON_IGNORE
 
 # Building project
+cd ../..
 colcon build --symlink-install --cmake-args -DBUILD_TESTING=OFF
 
 # Setup Gazebo to find models - GAZEBO_MODEL_PATH
@@ -24,7 +25,6 @@ source /usr/share/gazebo/setup.bash
 if ! grep -q "source /usr/share/gazebo/setup.bash" ~/.bashrc; then echo "source /usr/share/gazebo/setup.bash" >> ~/.bashrc; fi
 
 # Project's path
-cd ../..
 source install/setup.bash
 if ! grep -q "source "${PWD}"/install/setup.bash" ~/.bashrc; then echo "source "${PWD}"/install/setup.bash" >> ~/.bashrc; fi
 
