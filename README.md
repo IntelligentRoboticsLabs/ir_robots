@@ -200,8 +200,10 @@ You can use [Nav2] using Tiago in the selected world:
 
 ```bash
 source install/setup.sh
-ros2 launch ir_robots tiago_navigation.launch.py
+ros2 launch ir_robots tiago.launch.py
 ``` 
+If simulation param is set to false, Navigation2 is ready to use in the real Tiago.
+
 Also, you can use [Keepout Zones], just create a new map including the excluded areas, and use the same name adding `_keep`, now publish the map running:
 
 ```bash
@@ -209,14 +211,14 @@ source install/setup.sh
 ros2 launch ir_robots keepzone.launch.py
 ``` 
 
-Just some AWS worlds are included. You can [Navigate While Mapping] and create your own map using the [SLAM Toolbox] provided. In different terminals:
+Just some AWS worlds are included. You can [Navigate While Mapping] and create your own map using the [SLAM Toolbox]. In different terminals:
 
 * Run the SLAM Toolbox:
 
 ```bash
-ros2 launch slam_toolbox online_async_launch.py params_file:=install/slam_toolbox/share/slam_toolbox/config/mapper_params_online_async.yaml use_sim_time:=true
+ros2 launch slam_toolbox online_async_launch.py slam_params_file:=install/ir_robots/share/ir_robots/params/mapper_params_online_async.yaml use_sim_time:=true
 ```
-In slam_toolbox/config/mapper_params_online_async.yaml change scan_topic from /scan to /scan_raw
+You can load params/mapper_params_online_async.yaml to use directly in the real Tiego, but you change scan_topic from /scan to /scan_raw if you want to use the simulated Tiago.
 
 * Activate the map server:
 
@@ -228,6 +230,12 @@ ros2 launch nav2_map_server map_saver_server.launch.py
 
 ```bash
 rviz2 --ros-args -p use_sim_time:=true
+```
+
+* Move the simulated Tiago (or use the controller in the real Tiago):
+
+```bash
+ros2 run key_teleop key_teleop
 ```
 
 * Save the map:

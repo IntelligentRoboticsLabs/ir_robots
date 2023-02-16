@@ -41,7 +41,7 @@ def generate_launch_description():
     # Declare the launch arguments
     declare_params_file_cmd = DeclareLaunchArgument(
         'params_file',
-        default_value=os.path.join(robots_dir, 'params', 'tiago_nav_params.yaml'),
+        default_value=os.path.join(robots_dir, 'params', 'tiago_nav_params_sim.yaml'),
         description='Full path to the ROS2 parameters file to use for all launched nodes')
 
     declare_slam_cmd = DeclareLaunchArgument(
@@ -91,7 +91,7 @@ def generate_launch_description():
                               'use_lifecycle_mgr': 'false'}.items()),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'dependencies', 'navigation_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'dependencies', 'navigation_launch_sim.py')),
             launch_arguments={'use_sim_time': use_sim_time,
                               'autostart': autostart,
                               'params_file': params_file,
