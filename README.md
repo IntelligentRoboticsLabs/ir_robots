@@ -202,7 +202,7 @@ You can use [Nav2] using Tiago in the selected world:
 source install/setup.sh
 ros2 launch ir_robots tiago.launch.py
 ``` 
-If simulation param is set to false, Navigation2 is ready to use in the real Tiago.
+If simulation param is set to `false`, Navigation2 is ready to use in the real Tiago.
 
 Also, you can use [Keepout Zones], just create a new map including the excluded areas, and use the same name adding `_keep`, now publish the map running:
 
