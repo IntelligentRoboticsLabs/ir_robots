@@ -25,7 +25,9 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import SetRemap
 
+
 def generate_launch_description():
+
     # Get the launch directory
     robots_dir = get_package_share_directory('ir_robots')
     bringup_dir = get_package_share_directory('nav2_bringup')
@@ -91,7 +93,8 @@ def generate_launch_description():
                               'use_lifecycle_mgr': 'false'}.items()),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'dependencies', 'navigation_launch_sim.py')),
+            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch',
+                                          'dependencies', 'navigation_launch_sim.py')),
             launch_arguments={'use_sim_time': use_sim_time,
                               'autostart': autostart,
                               'params_file': params_file,

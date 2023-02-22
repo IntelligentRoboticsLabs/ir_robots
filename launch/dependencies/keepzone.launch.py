@@ -74,7 +74,8 @@ def generate_launch_description():
 
     declare_mask_yaml_file_cmd = DeclareLaunchArgument(
             'mask',
-            default_value=os.path.join(robots_dir, 'maps', conf['ir_robots']['world']+'_keep.yaml'),
+            default_value=os.path.join(
+                robots_dir, 'maps', conf['ir_robots']['world']+'_keep.yaml'),
             description='Full path to filter mask yaml file to load')
 
     # Make re-written yaml

@@ -34,7 +34,7 @@ def generate_launch_description():
 
     # @TODO: load PID gains? used in gazebo_ros_control fork
     # @TODO: load tiago_pal_hardware_gazebo
-    
+
     robots_dir = get_package_share_directory('ir_robots')
 
     config = os.path.join(robots_dir, 'config', 'params.yaml')
@@ -50,7 +50,7 @@ def generate_launch_description():
         'model_name', default_value='tiago',
         description='Gazebo model name'
     )
-   
+
     tiago_state_publisher = include_launch_py_description(
         'tiago_description',
         ['launch', 'robot_state_publisher.launch.py'])
@@ -58,12 +58,18 @@ def generate_launch_description():
     tiago_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
                                    '-entity', LaunchConfiguration('model_name'),
-                                   ' '.join(['-x', str(conf['ir_robots']['robot_position']['x'])]),
-                                   ' '.join(['-y', str(conf['ir_robots']['robot_position']['y'])]),
-                                   ' '.join(['-z', str(conf['ir_robots']['robot_position']['z'])]),
-                                   ' '.join(['-R', str(conf['ir_robots']['robot_position']['roll'])]),
-                                   ' '.join(['-P', str(conf['ir_robots']['robot_position']['pitch'])]),
-                                   ' '.join(['-Y', str(conf['ir_robots']['robot_position']['yaw'])]),
+                                   ' '.join(['-x', str(conf['ir_robots']
+                                                           ['robot_position']['x'])]),
+                                   ' '.join(['-y', str(conf['ir_robots']
+                                                           ['robot_position']['y'])]),
+                                   ' '.join(['-z', str(conf['ir_robots']
+                                                           ['robot_position']['z'])]),
+                                   ' '.join(['-R', str(conf['ir_robots']
+                                                           ['robot_position']['roll'])]),
+                                   ' '.join(['-P', str(conf['ir_robots']
+                                                           ['robot_position']['pitch'])]),
+                                   ' '.join(['-Y', str(conf['ir_robots']
+                                                           ['robot_position']['yaw'])]),
                                    # LaunchConfiguration('gzpose'),
                                    ],
                         output='screen')

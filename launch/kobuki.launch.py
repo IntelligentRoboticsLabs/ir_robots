@@ -15,19 +15,17 @@
 import os
 
 from ament_index_python.packages import get_package_share_directory
-
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription 
-
+from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import PathJoinSubstitution 
-
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
 
 import yaml
 
+
 def generate_launch_description():
-    
+
     robots_dir = get_package_share_directory('ir_robots')
 
     config = os.path.join(robots_dir, 'config', 'params.yaml')
@@ -46,12 +44,12 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     kobuki_cmd = Node(package='kobuki_node',
-        executable='kobuki_ros_node',
-        output='screen',
-        parameters=[kobuki_params],
-        remappings=[
-            ('/commands/velocity', '/cmd_vel'),
-        ])
+                      executable='kobuki_ros_node',
+                      output='screen',
+                      parameters=[kobuki_params],
+                      remappings=[
+                          ('/commands/velocity', '/cmd_vel'),
+                      ])
 
     ld.add_action(kobuki_cmd)
 
@@ -61,14 +59,15 @@ def generate_launch_description():
     if 'xtion' in kobuki_camera:
         xtion_cmd = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('openni2_camera'),
-            'launch/'), 'camera_with_cloud.launch.py']),)
+                get_package_share_directory('openni2_camera'),
+                'launch/'), 'camera_with_cloud.launch.py']),)
 
-        tf_kobuki2camera_cmd = Node( package='tf2_ros', executable='static_transform_publisher', output='screen',
-            arguments=['0.05', '0.0', '0.17',
-                    '1.56', '0', '-1.56',
-                    'base_link',
-                    'openni_rgb_optical_frame'])
+        tf_kobuki2camera_cmd = Node(package='tf2_ros',
+                                    executable='static_transform_publisher', output='screen',
+                                    arguments=['0.05', '0.0', '0.17',
+                                               '1.56', '0', '-1.56',
+                                               'base_link',
+                                               'openni_rgb_optical_frame'])
 
         ld.add_action(xtion_cmd)
         ld.add_action(tf_kobuki2camera_cmd)
@@ -79,11 +78,12 @@ def generate_launch_description():
                 get_package_share_directory('astra_camera'),
                 'launch/'), 'astra_mini.launch.py']),)
 
-        tf_kobuki2camera_cmd = Node( package='tf2_ros', executable='static_transform_publisher', output='screen',
-            arguments=['0.05', '0.0', '0.17',
-                    '0', '0', '0',
-                    'base_link',
-                    'camera_link'])
+        tf_kobuki2camera_cmd = Node(package='tf2_ros',
+                                    executable='static_transform_publisher', output='screen',
+                                    arguments=['0.05', '0.0', '0.17',
+                                               '0', '0', '0',
+                                               'base_link',
+                                               'camera_link'])
 
         ld.add_action(astra_cmd)
         ld.add_action(tf_kobuki2camera_cmd)
@@ -105,11 +105,14 @@ def generate_launch_description():
                 'angle_compensate': True,
             }],)
 
-        tf_kobuki2laser_cmd = Node( package='tf2_ros', executable='static_transform_publisher', output='screen',
-            arguments=['0.11', '0.0', '0.17',
-                    '3.1415', '0', '3.1415',
-                    'base_link',
-                    'laser'])
+        tf_kobuki2laser_cmd = Node(package='tf2_ros',
+                                   executable='static_transform_publisher', output='screen',
+                                   arguments=[
+                                       '0.11', '0.0', '0.17',
+                                       '3.1415', '0', '3.1415',
+                                       'base_link',
+                                       'laser'
+                                   ])
 
         laser_filter_cmd = Node(
             package="laser_filters",
@@ -126,5 +129,5 @@ def generate_launch_description():
 
     else:
         print("NO LIDAR")
-  
+
     return ld

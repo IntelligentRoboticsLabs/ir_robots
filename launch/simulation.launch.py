@@ -118,7 +118,6 @@ def generate_launch_description():
                     'launch'), '/view_bookstore.launch.py']),
             )
 
-
     tiago_spawn = include_launch_py_description(
         'ir_robots', ['launch', 'dependencies', 'tiago_spawn.launch.py'])
 
@@ -166,5 +165,5 @@ def generate_launch_description():
         ld.add_action(kobuki_spawn)
     else:
         print(robot_name + ' NOT FOUND')
-    
+
     return ld

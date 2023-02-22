@@ -22,7 +22,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
 def generate_launch_description():
-        
+
     robots_dir = get_package_share_directory('ir_robots')
 
     config = os.path.join(robots_dir, 'config', 'params.yaml')
@@ -37,14 +37,15 @@ def generate_launch_description():
     simulation = conf['ir_robots']['simulation']
 
     nav = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(robots_dir, 'launch', 'dependencies'), '/tiago_navigation_sim.launch.py']),
+        PythonLaunchDescriptionSource([os.path.join(
+                robots_dir, 'launch', 'dependencies'), '/tiago_navigation_sim.launch.py']),
     )
 
     if not simulation:
         nav = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([os.path.join(robots_dir, 'launch', 'dependencies'), '/tiago_navigation_real.launch.py']),
+            PythonLaunchDescriptionSource([os.path.join(
+                robots_dir, 'launch', 'dependencies'), '/tiago_navigation_real.launch.py']),
         )
-
 
     # Create the launch description and populate
     ld = LaunchDescription()

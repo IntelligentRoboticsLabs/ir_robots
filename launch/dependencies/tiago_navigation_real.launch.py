@@ -119,30 +119,35 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(os.path.join(launch_dir, 'slam_launch.py')),
         condition=IfCondition(slam),
         launch_arguments={'namespace': namespace,
-                            'use_sim_time': use_sim_time,
-                            'autostart': autostart,
-                            'use_respawn': use_respawn,
-                            'params_file': params_file}.items())
+                          'use_sim_time': use_sim_time,
+                          'autostart': autostart,
+                          'use_respawn': use_respawn,
+                          'params_file': params_file}.items())
 
     localization_cmd = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(launch_dir, 'localization_launch.py')),
             condition=IfCondition(PythonExpression(['not ', slam])),
-            launch_arguments={'namespace': namespace,
-                              'map': map_yaml_file,
-                              'use_sim_time': use_sim_time,
-                              'autostart': autostart,
-                              'params_file': params_file,
-                              'use_composition': use_composition,
-                              'use_respawn': use_respawn,
-                              'container_name': 'nav2_container'}.items())
+            launch_arguments={
+                'namespace': namespace,
+                'map': map_yaml_file,
+                'use_sim_time': use_sim_time,
+                'autostart': autostart,
+                'params_file': params_file,
+                'use_composition': use_composition,
+                'use_respawn': use_respawn,
+                'container_name': 'nav2_container'
+            }.items())
 
     nav_cmd = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch', 'dependencies', 'navigation_launch_real.py')),
-            launch_arguments={'use_sim_time': use_sim_time,
-                              'autostart': autostart,
-                              'params_file': params_file,
-                              'use_lifecycle_mgr': 'false',
-                              'map_subscribe_transient_local': 'true'}.items())
+            PythonLaunchDescriptionSource(
+                os.path.join(robots_dir, 'launch', 'dependencies', 'navigation_launch_real.py')),
+            launch_arguments={
+                'use_sim_time': use_sim_time,
+                'autostart': autostart,
+                'params_file': params_file,
+                'use_lifecycle_mgr': 'false',
+                'map_subscribe_transient_local': 'true'
+            }.items())
 
     # Create the launch description and populate
     ld = LaunchDescription()
