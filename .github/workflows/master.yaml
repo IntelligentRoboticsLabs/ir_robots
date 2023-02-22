@@ -1,12 +1,12 @@
-name: humble-devel
+name: ros2-humble
 
 on:
   pull_request:
     branches:
-      - humble-devel
+      - ros2-humble
   push:
     branches:
-      - humble-devel
+      - ros2-humble
 
 jobs:
   build-and-test:

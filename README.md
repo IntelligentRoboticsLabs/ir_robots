@@ -1,5 +1,9 @@
 # Robots from the Intelligent Robotics Lab using ROS 2
 
+![distro](https://img.shields.io/badge/Ubuntu%2022-Jammy%20Jellyfish-green)
+![distro](https://img.shields.io/badge/ROS2-Humble-blue)
+[![humble-devel](https://github.com/IntelligentRoboticsLabs/ir_robots/actions/workflows/master.yaml/badge.svg?branch=ros2-humble)](https://github.com/IntelligentRoboticsLabs/ir_robots/actions/workflows/master.yaml)
+
 This project contains the launchers to run the Tiago robot from [PAL Robotics](https://github.com/pal-robotics) and [Turtlebot2 Kobuki](https://github.com/kobuki-base), both in simulated running different Gazebo worlds, including the [AWS Robomaker](https://github.com/aws-robotics) worlds, as in the real robot using its drivers.
 
 **Recommended: use [Eclipse Cyclone DDS](https://docs.ros.org/en/foxy/Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html). 
@@ -17,15 +21,6 @@ cd <ros2-workspace>/src
 git clone https://github.com/IntelligentRoboticsLabs/ir_robots.git
 ```
 
-## Automatic installation (recommended)
-Execute installation script.
-```bash
-cd <ros2-workspace>/src/ir_robots
-./setup.sh
-```
-
-## Manual installation
-
 Prepare your thirparty repos:
 ```bash
 sudo apt update
@@ -39,49 +34,6 @@ Prepare a folder where you will compile necessary libraries for some packages:
 ```bash
 cd <ros2-workspace>
 mkdir repos && cd repos
-```
-
-### Install glog
-```bash
-cd <ros2-workspace>/repos
-wget -c https://github.com/google/glog/archive/refs/tags/v0.6.0.tar.gz  -O glog-0.6.0.tar.gz
-tar -xzvf glog-0.6.0.tar.gz
-rm -rf glog-0.6.0.tar.gz
-cd glog-0.6.0
-mkdir build && cd build
-cmake .. && make -j4
-sudo make install
-sudo ldconfig
-cd ..
-touch COLCON_IGNORE
-```
-
-### Install magic_enum
-```bash
-cd <ros2-workspace>/repos
-wget -c https://github.com/Neargye/magic_enum/archive/refs/tags/v0.8.0.tar.gz -O  magic_enum-0.8.0.tar.gz
-tar -xzvf magic_enum-0.8.0.tar.gz
-rm -rf magic_enum-0.8.0.tar.gz
-cd magic_enum-0.8.0
-mkdir build && cd build
-cmake .. && make -j4
-sudo make install
-sudo ldconfig
-cd ..
-touch COLCON_IGNORE
-```
-
-### Install libuvc
-```bash
-cd <ros2-workspace>/repos
-git clone https://github.com/libuvc/libuvc.git
-cd libuvc
-mkdir build && cd build
-cmake .. && make -j4
-sudo make install
-sudo ldconfig
-cd ..
-touch COLCON_IGNORE
 ```
 
 ### Install libusb & libftdi
