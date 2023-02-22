@@ -1,5 +1,9 @@
 # Robots from the Intelligent Robotics Lab using ROS 2
 
+![distro](https://img.shields.io/badge/Ubuntu%2022-Jammy%20Jellyfish-green)
+![distro](https://img.shields.io/badge/ROS2-Humble-blue)
+[![humble-devel](https://github.com/IntelligentRoboticsLabs/ir_robots/actions/workflows/master.yaml/badge.svg?branch=ros2-humble)](https://github.com/IntelligentRoboticsLabs/ir_robots/actions/workflows/master.yaml)
+
 This project contains the launchers to run the Tiago robot from [PAL Robotics](https://github.com/pal-robotics) and [Turtlebot2 Kobuki](https://github.com/kobuki-base), both in simulated running different Gazebo worlds, including the [AWS Robomaker](https://github.com/aws-robotics) worlds, as in the real robot using its drivers.
 
 **Recommended: use [Eclipse Cyclone DDS](https://docs.ros.org/en/foxy/Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html). 
