@@ -64,6 +64,12 @@ def generate_launch_description():
         except yaml.YAMLError as exc:
             print(exc)
 
+    simulation = conf['ir_robots']['simulation']
+
+    if not simulation:
+        print("Simulation param is set to false, please change it to run the simulator: " + config)
+        return LaunchDescription()
+
     arm_arg = DeclareLaunchArgument(
         'arm', default_value='no-arm',
         description='Tiago arm'
