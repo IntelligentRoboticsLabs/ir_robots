@@ -30,12 +30,6 @@ vcs import < thirdparty.repos
 ```
 *Please make sure that this last command has not failed. If this happens, run it again.*
 
-Prepare a folder where you will compile necessary libraries for some packages:
-```bash
-cd <ros2-workspace>
-mkdir repos && cd repos
-```
-
 ### Install libusb & libftdi
 ```bash
 sudo apt install libusb-1.0-0-dev libftdi1-dev
