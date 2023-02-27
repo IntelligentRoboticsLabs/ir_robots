@@ -13,18 +13,14 @@
 # limitations under the License.
 
 import os
-
+import yaml
 from ament_index_python.packages import get_package_share_directory, get_package_prefix
-
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
-
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import PathJoinSubstitution 
-
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
 
-import yaml
 
 def get_model_paths(packages_names):
     model_paths = ""
@@ -39,8 +35,9 @@ def get_model_paths(packages_names):
 
     return model_paths
 
+
 def generate_launch_description():
-    
+
     robots_dir = get_package_share_directory('ir_robots')
 
     config = os.path.join(robots_dir, 'config', 'params.yaml')
@@ -59,12 +56,12 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     kobuki_cmd = Node(package='kobuki_node',
-        executable='kobuki_ros_node',
-        output='screen',
-        parameters=[kobuki_params],
-        remappings=[
-            ('/commands/velocity', '/cmd_vel'),
-        ])
+                      executable='kobuki_ros_node',
+                      output='screen',
+                      parameters=[kobuki_params],
+                      remappings=[
+                        ('/commands/velocity', '/cmd_vel'),
+                      ])
 
     ld.add_action(kobuki_cmd)
 
@@ -74,13 +71,13 @@ def generate_launch_description():
     if 'xtion' in kobuki_camera:
         xtion_cmd = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('openni2_camera'),
-            'launch/'), 'camera_with_cloud.launch.py']),)
-        
+                get_package_share_directory('openni2_camera'),
+                'launch/'), 'camera_with_cloud.launch.py']),)
+
         robot_description_cmd = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('kobuki_description'),
-            'launch/'), 'kobuki_xtion_description.launch.py']),)
+                get_package_share_directory('kobuki_description'),
+                'launch/'), 'kobuki_xtion_description.launch.py']),)
 
         ld.add_action(robot_description_cmd)
         ld.add_action(xtion_cmd)
@@ -90,11 +87,11 @@ def generate_launch_description():
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory('astra_camera'),
                 'launch/'), 'astra_mini.launch.py']),)
-        
+
         robot_description_cmd = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('kobuki_description'),
-            'launch/'), 'kobuki_astra_description.launch.py']),)
+                get_package_share_directory('kobuki_description'),
+                'launch/'), 'kobuki_astra_description.launch.py']),)
 
         ld.add_action(robot_description_cmd)
         ld.add_action(astra_cmd)
@@ -102,9 +99,9 @@ def generate_launch_description():
     else:
         robot_description_cmd = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('kobuki_description'),
-            'launch/'), 'kobuki_description.launch.py']),)
-        
+                get_package_share_directory('kobuki_description'),
+                'launch/'), 'kobuki_description.launch.py']),)
+
         ld.add_action(robot_description_cmd)
         print("NO CAMERA")
 
@@ -145,12 +142,12 @@ def generate_launch_description():
 
     ld.add_action(SetEnvironmentVariable('GAZEBO_MODEL_PATH', model_path))
 
-    tf_footprint2base_cmd = Node( package='tf2_ros', executable='static_transform_publisher', output='screen',
-            arguments=['0.0', '0.0', '0.01',
-                    '-1.56', '0.0', '-1.56',
-                    'base_link',
-                    'base_footprint'])
-    
+    tf_footprint2base_cmd = Node(package='tf2_ros', executable='static_transform_publisher',
+                                 output='screen',
+                                 arguments=['0.0', '0.0', '0.01',
+                                            '-1.56', '0.0', '-1.56',
+                                            'base_link',
+                                            'base_footprint'])
+
     ld.add_action(tf_footprint2base_cmd)
-  
     return ld
