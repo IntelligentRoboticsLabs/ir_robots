@@ -25,8 +25,8 @@ Prepare your thirparty repos:
 ```bash
 sudo apt update
 sudo apt install python3-vcstool python3-pip python3-rosdep python3-colcon-common-extensions -y
-cd <ros2-workspace>/src/ir_robots
-vcs import < thirdparty.repos
+cd <ros2-workspace>/src/
+vcs import < ir_robots/thirdparty.repos
 ```
 *Please make sure that this last command has not failed. If this happens, run it again.*
 
@@ -70,13 +70,22 @@ source <ros2-workspace>/install/setup.bash
 *It is recommended to add these two lines inside your `.bashrc` to avoid having to run it every time you open a new shell*
 
 # Installation in the laboratories of the university
-In the computers of the university laboratories you will already have all the ros 2 packages installed, so you will not have to install tools or dependencies. With the following script you will prepare some packages to be able to compile the workspace correctly and be able to simulate the environment.
+In the computers of the university laboratories you will already have all the ros 2 packages installed, so you will not have to install any tools or dependencies. Add `COLCON_IGNORE` to the packages used by real robots to avoid any problems when building.
 
 ```bash
-cd <ros2-workspace>/src
+cd <ros2-workspace>/src/
 git clone https://github.com/IntelligentRoboticsLabs/ir_robots.git
+vcs import < ir_robots/thirdparty.repos
+
+touch ../ThirdParty/ros_astra_camera/astra_camera/COLCON_IGNORE
+touch ../ThirdParty/ros_astra_camera/astra_camera_msgs/COLCON_IGNORE
+touch ../ThirdParty/kobuki_ftdi/COLCON_IGNORE
+touch ../ThirdParty/ecl_lite/COLCON_IGNORE
+touch ../ThirdParty/ecl_core/COLCON_IGNORE
+
 source /opt/ros/<ros2-distro>/setup.bash
-./setup_laboratory.sh
+cd <ros2-workspace>
+colcon build --symlink-install
 ```
 *Remember that in the laboratories you will only be able to run the simulation of the environment with the different robots, you will not be able to use it on a real robot.*
 
