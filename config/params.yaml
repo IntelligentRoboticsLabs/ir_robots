@@ -40,6 +40,7 @@
 # Options:
 #
 # Robot: tiago - kobuki
+# Tiago arm: no-arm - right-arm
 # Kobuki camera: none - xtion - astra
 # Kobuki lidar: true - false
 
@@ -54,5 +55,6 @@ ir_robots:
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
+  tiago_arm: no-arm
   kobuki_camera: none
   kobuki_lidar: false
