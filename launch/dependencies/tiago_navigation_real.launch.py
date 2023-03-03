@@ -74,7 +74,8 @@ def generate_launch_description():
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
-        default_value=os.path.join(robots_dir, 'maps', conf['ir_robots']['world']+'.yaml'),
+        default_value=os.path.join(robots_dir, 'maps',
+                                   conf['ir_robots']['world']+'.yaml'),
         description='Full path to map yaml file to load')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -84,8 +85,10 @@ def generate_launch_description():
 
     declare_params_file_cmd = DeclareLaunchArgument(
         'params_file',
-        default_value=os.path.join(robots_dir, 'params', 'tiago_nav_params_real.yaml'),
-        description='Full path to the ROS2 parameters file to use for all launched nodes')
+        default_value=os.path.join(robots_dir,
+                                   'params', 'tiago_nav_params_real.yaml'),
+        description='Full path to the ROS2 parameters file to \
+                    use for all launched nodes')
 
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart', default_value='true',
@@ -97,11 +100,15 @@ def generate_launch_description():
 
     declare_use_respawn_cmd = DeclareLaunchArgument(
         'use_respawn', default_value='False',
-        description='Whether to respawn if a node crashes. Applied when composition is disabled.')
+        description='Whether to respawn if a node crashes. \
+                    Applied when composition \
+                    is disabled.')
 
     declare_rviz_config_file_cmd = DeclareLaunchArgument(
         'rviz_config_file',
-        default_value=os.path.join(bringup_dir, 'rviz', 'nav2_default_view.rviz'),
+        default_value=os.path.join(bringup_dir,
+                                   'rviz',
+                                   'nav2_default_view.rviz'),
         description='Full path to the RVIZ config file to use')
 
     declare_use_rviz_cmd = DeclareLaunchArgument(
@@ -110,14 +117,16 @@ def generate_launch_description():
         description='Whether to start RVIZ')
 
     rviz_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(launch_dir, 'rviz_launch.py')),
+        PythonLaunchDescriptionSource(os.path.join(launch_dir,
+                                                   'rviz_launch.py')),
         condition=IfCondition(use_rviz),
         launch_arguments={'namespace': namespace,
                           'use_namespace': use_namespace,
                           'rviz_config': rviz_config_file}.items())
 
     slam_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(launch_dir, 'slam_launch.py')),
+        PythonLaunchDescriptionSource(os.path.join(launch_dir,
+                                                   'slam_launch.py')),
         condition=IfCondition(slam),
         launch_arguments={'namespace': namespace,
                           'use_sim_time': use_sim_time,
@@ -126,7 +135,9 @@ def generate_launch_description():
                           'params_file': params_file}.items())
 
     localization_cmd = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(launch_dir, 'localization_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(
+                                            launch_dir,
+                                            'localization_launch.py')),
             condition=IfCondition(PythonExpression(['not ', slam])),
             launch_arguments={
                 'namespace': namespace,
@@ -141,7 +152,8 @@ def generate_launch_description():
 
     nav_cmd = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                os.path.join(robots_dir, 'launch', 'dependencies', 'navigation_launch_real.py')),
+                os.path.join(robots_dir, 'launch', 'dependencies',
+                             'navigation_launch_real.py')),
             launch_arguments={
                 'use_sim_time': use_sim_time,
                 'autostart': autostart,

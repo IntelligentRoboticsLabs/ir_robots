@@ -38,13 +38,15 @@ def generate_launch_description():
 
     nav = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
-                robots_dir, 'launch', 'dependencies'), '/tiago_navigation_sim.launch.py']),
+                robots_dir, 'launch', 'dependencies'),
+                '/tiago_navigation_sim.launch.py']),
     )
 
     if not simulation:
         nav = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
-                robots_dir, 'launch', 'dependencies'), '/tiago_navigation_real.launch.py']),
+                robots_dir, 'launch', 'dependencies'),
+                '/tiago_navigation_real.launch.py']),
         )
 
     # Create the launch description and populate

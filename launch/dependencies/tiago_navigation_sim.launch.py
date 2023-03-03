@@ -20,7 +20,8 @@ import yaml
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, GroupAction, IncludeLaunchDescription
+from launch.actions import (DeclareLaunchArgument, GroupAction,
+                            IncludeLaunchDescription)
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
@@ -44,8 +45,10 @@ def generate_launch_description():
     # Declare the launch arguments
     declare_params_file_cmd = DeclareLaunchArgument(
         'params_file',
-        default_value=os.path.join(robots_dir, 'params', 'tiago_nav_params_sim.yaml'),
-        description='Full path to the ROS2 parameters file to use for all launched nodes')
+        default_value=os.path.join(robots_dir,
+                                   'params', 'tiago_nav_params_sim.yaml'),
+        description='Full path to the ROS2 parameters file to \
+                    use for all launched nodes')
 
     declare_slam_cmd = DeclareLaunchArgument(
         'slam',
@@ -63,7 +66,8 @@ def generate_launch_description():
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
-        default_value=os.path.join(robots_dir, 'maps', conf['ir_robots']['world']+'.yaml'),
+        default_value=os.path.join(robots_dir, 'maps',
+                                   conf['ir_robots']['world']+'.yaml'),
         description='Full path to map yaml file to load')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -77,15 +81,18 @@ def generate_launch_description():
 
     nav2_bringup_cmd_group = GroupAction([
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(bringup_dir, 'launch', 'slam_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(
+                                            bringup_dir,
+                                            'launch', 'slam_launch.py')),
             condition=IfCondition(slam),
             launch_arguments={'use_sim_time': use_sim_time,
                               'autostart': autostart,
                               'params_file': params_file}.items()),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(bringup_dir, 'launch',
-                                                       'localization_launch.py')),
+            PythonLaunchDescriptionSource(os.path.join(
+                                            bringup_dir, 'launch',
+                                            'localization_launch.py')),
             condition=IfCondition(PythonExpression(['not ', slam])),
             launch_arguments={'map': map_yaml_file,
                               'use_sim_time': use_sim_time,
@@ -94,18 +101,22 @@ def generate_launch_description():
                               'use_lifecycle_mgr': 'false'}.items()),
 
         IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(robots_dir, 'launch',
-                                          'dependencies', 'navigation_launch_sim.py')),
+            PythonLaunchDescriptionSource(
+                os.path.join(robots_dir, 'launch',
+                             'dependencies',
+                             'navigation_launch_sim.py')),
             launch_arguments={'use_sim_time': use_sim_time,
                               'autostart': autostart,
                               'params_file': params_file,
                               'use_lifecycle_mgr': 'false',
-                              'map_subscribe_transient_local': 'true'}.items()),
+                              'map_subscribe_transient_local': 'true'
+                              }.items()),
     ])
 
     declare_rviz_config_file_cmd = DeclareLaunchArgument(
         'rviz_config_file',
-        default_value=os.path.join(bringup_dir, 'rviz', 'nav2_default_view.rviz'),
+        default_value=os.path.join(bringup_dir,
+                                   'rviz', 'nav2_default_view.rviz'),
         description='Full path to the RVIZ config file to use')
 
     declare_use_rviz_cmd = DeclareLaunchArgument(
@@ -114,7 +125,9 @@ def generate_launch_description():
         description='Whether to start RVIZ')
 
     rviz_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(bringup_dir, 'launch', 'rviz_launch.py')),
+        PythonLaunchDescriptionSource(os.path.join(bringup_dir,
+                                                   'launch',
+                                                   'rviz_launch.py')),
         launch_arguments={'rviz_config': rviz_config_file}.items())
 
     # Remapping

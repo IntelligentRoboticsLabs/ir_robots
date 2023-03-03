@@ -59,19 +59,26 @@ def generate_launch_description():
 
     tiago_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity', LaunchConfiguration('model_name'),
+                                   '-entity',
+                                   LaunchConfiguration('model_name'),
                                    ' '.join(['-x', str(conf['ir_robots']
-                                                           ['robot_position']['x'])]),
+                                                           ['robot_position']
+                                                           ['x'])]),
                                    ' '.join(['-y', str(conf['ir_robots']
-                                                           ['robot_position']['y'])]),
+                                                           ['robot_position']
+                                                           ['y'])]),
                                    ' '.join(['-z', str(conf['ir_robots']
-                                                           ['robot_position']['z'])]),
+                                                           ['robot_position']
+                                                           ['z'])]),
                                    ' '.join(['-R', str(conf['ir_robots']
-                                                           ['robot_position']['roll'])]),
+                                                           ['robot_position']
+                                                           ['roll'])]),
                                    ' '.join(['-P', str(conf['ir_robots']
-                                                           ['robot_position']['pitch'])]),
+                                                           ['robot_position']
+                                                           ['pitch'])]),
                                    ' '.join(['-Y', str(conf['ir_robots']
-                                                           ['robot_position']['yaw'])]),
+                                                           ['robot_position']
+                                                           ['yaw'])]),
                                    # LaunchConfiguration('gzpose'),
                                    ],
                         output='screen')

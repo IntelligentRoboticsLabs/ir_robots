@@ -14,7 +14,8 @@
 
 import os
 import yaml
-from ament_index_python.packages import get_package_share_directory, get_package_prefix
+from ament_index_python.packages import (get_package_share_directory,
+                                         get_package_prefix)
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -142,7 +143,8 @@ def generate_launch_description():
 
     ld.add_action(SetEnvironmentVariable('GAZEBO_MODEL_PATH', model_path))
 
-    tf_footprint2base_cmd = Node(package='tf2_ros', executable='static_transform_publisher',
+    tf_footprint2base_cmd = Node(package='tf2_ros',
+                                 executable='static_transform_publisher',
                                  output='screen',
                                  arguments=['0.0', '0.0', '0.01',
                                             '-1.56', '0.0', '-1.56',
