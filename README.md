@@ -65,9 +65,9 @@ vcs import < ir_robots/thirdparty.repos
 ```
 *Please make sure that this last command has not failed. If this happens, run it again.*
 
-### Install libusb & libftdi
+### Install libusb, libftdi & libuvc
 ```bash
-sudo apt install libusb-1.0-0-dev libftdi1-dev
+sudo apt install libusb-1.0-0-dev libftdi1-dev libuvc-dev
 ```
 
 ### Install udev rules from astra camera, kobuki and rplidar
