@@ -21,7 +21,6 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-from launch_pal.include_utils import include_launch_py_description
 
 
 def generate_launch_description():
@@ -64,29 +63,30 @@ def generate_launch_description():
     )
 
     kobuki_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
-                        arguments=['-topic', 'robot_description',
-                                   '-entity', LaunchConfiguration('model_name'),
-                                   ' '.join(['-x', str(conf['ir_robots']
-                                                           ['robot_position']['x'])]),
-                                   ' '.join(['-y', str(conf['ir_robots']
-                                                           ['robot_position']['y'])]),
-                                   ' '.join(['-z', str(conf['ir_robots']
-                                                           ['robot_position']['z'])]),
-                                   ' '.join(['-R', str(conf['ir_robots']
-                                                           ['robot_position']['roll'])]),
-                                   ' '.join(['-P', str(conf['ir_robots']
-                                                           ['robot_position']['pitch'])]),
-                                   ' '.join(['-Y', str(conf['ir_robots']
-                                                           ['robot_position']['yaw'])]),
-                                   # LaunchConfiguration('gzpose'),
-                                   ],
-                        output='screen')
-    
-    tf_footprint2base_cmd = Node( package='tf2_ros', executable='static_transform_publisher', output='screen',
-            arguments=['0.0', '0.0', '0.01',
-                    '-1.56', '0.0', '-1.56',
-                    'base_link',
-                    'base_footprint'])
+                         arguments=['-topic', 'robot_description',
+                                    '-entity', LaunchConfiguration('model_name'),
+                                    ' '.join(['-x', str(conf['ir_robots']
+                                                            ['robot_position']['x'])]),
+                                    ' '.join(['-y', str(conf['ir_robots']
+                                                            ['robot_position']['y'])]),
+                                    ' '.join(['-z', str(conf['ir_robots']
+                                                            ['robot_position']['z'])]),
+                                    ' '.join(['-R', str(conf['ir_robots']
+                                                            ['robot_position']['roll'])]),
+                                    ' '.join(['-P', str(conf['ir_robots']
+                                                            ['robot_position']['pitch'])]),
+                                    ' '.join(['-Y', str(conf['ir_robots']
+                                                            ['robot_position']['yaw'])]),
+                                    # LaunchConfiguration('gzpose'),
+                                    ],
+                         output='screen')
+
+    tf_footprint2base_cmd = Node(package='tf2_ros', executable='static_transform_publisher',
+                                 output='screen',
+                                 arguments=['0.0', '0.0', '0.01',
+                                            '-1.56', '0.0', '-1.56',
+                                            'base_link',
+                                            'base_footprint'])
 
     # Create the launch description and populate
     ld = LaunchDescription()
