@@ -52,7 +52,6 @@ def generate_launch_description():
         except yaml.YAMLError as exc:
             print(exc)
 
-
     simulation = conf['ir_robots']['simulation']
 
     lifecycle_nodes = ['controller_server',
@@ -77,7 +76,7 @@ def generate_launch_description():
                   ('/cmd_vel', 'nav_vel'),
                   ('/cmd_vel', 'cmd_vel_nav'),
                   ('/cmd_vel_smoothed', 'cmd_vel')]
-    
+
     if not simulation:
         remappings = [('/tf', 'tf'),
                       ('/tf_static', 'tf_static')]

@@ -63,15 +63,15 @@ def generate_launch_description():
     tiago_state_publisher = include_launch_py_description(
         'tiago_description',
         ['launch', 'robot_state_publisher.launch.py'])
-    
-     # Robot description
+
+    # Robot description
     robot_model = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         parameters=[{'robot_description': robot_desc}],
         arguments=[urdf_file]
     )
-    
+
     # TF Tree
     joint_state_publisher_node = Node(
         package='joint_state_publisher',
@@ -118,7 +118,7 @@ def generate_launch_description():
         ld.add_action(robot_model)
     elif 'tiago' in robot:
         ld.add_action(tiago_state_publisher)
-    
+
     ld.add_action(robot_entity)
 
     return ld

@@ -87,20 +87,20 @@ def generate_launch_description():
                                    conf['ir_robots']['robot']+'_nav_params_sim.yaml'),
         description='Full path to the ROS2 parameters file to \
                     use for all launched nodes')
-    
+
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         'use_sim_time',
         default_value='True',
         description='Use simulation (Gazebo) clock if true')
-    
+
     if not simulation:
         declare_params_file_cmd = DeclareLaunchArgument(
             'params_file',
             default_value=os.path.join(robots_dir, 'params',
-                                    conf['ir_robots']['robot']+'_nav_params_real.yaml'),
+                                       conf['ir_robots']['robot']+'_nav_params_real.yaml'),
             description='Full path to the ROS2 parameters file to \
                         use for all launched nodes')
-        
+
         declare_use_sim_time_cmd = DeclareLaunchArgument(
             'use_sim_time',
             default_value='False',
