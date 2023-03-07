@@ -143,7 +143,7 @@ def generate_launch_description():
         'tiago_bringup', ['launch', 'tiago_bringup.launch.py'])
 
     kobuki_spawn = include_launch_py_description(
-        'kobuki_description', ['launch', 'spawn.launch.py'])
+        'ir_robots', ['launch', 'dependencies', 'kobuki_spawn.launch.py'])
 
     # tuck_arm = Node(package='tiago_gazebo',
     #                 executable='tuck_arm.py',
