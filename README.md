@@ -144,7 +144,6 @@ ir_robots:
   kobuki_lidar: false
 ...
 ```
-*Currently it is not possible to select the initial position of the kobuki. Will be implemented in future versions*
 
 Then, launch your simulation environment:
 ```bash
