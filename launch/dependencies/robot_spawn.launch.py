@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # Modified by José Miguel Guerrero Hernández
+# Modified by Juan Carlos Manzanares Serrano
 
 import os
 import yaml
@@ -38,8 +39,14 @@ def generate_launch_description():
     # @TODO: load tiago_pal_hardware_gazebo
 
     robots_dir = get_package_share_directory('ir_robots')
+    kobuki_dir = get_package_share_directory('kobuki_description')
+
+    urdf_file = os.path.join(kobuki_dir, 'urdf', 'kobuki_gazebo.urdf')
 
     config = os.path.join(robots_dir, 'config', 'params.yaml')
+
+    with open(urdf_file, 'r') as info:
+        robot_desc = info.read()
 
     with open(config, "r") as stream:
         try:
@@ -49,15 +56,30 @@ def generate_launch_description():
             print(exc)
 
     model_name = DeclareLaunchArgument(
-        'model_name', default_value='tiago',
+        'model_name', default_value='robot',
         description='Gazebo model name'
     )
 
     tiago_state_publisher = include_launch_py_description(
         'tiago_description',
         ['launch', 'robot_state_publisher.launch.py'])
+    
+     # Robot description
+    robot_model = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        parameters=[{'robot_description': robot_desc}],
+        arguments=[urdf_file]
+    )
+    
+    # TF Tree
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher'
+    )
 
-    tiago_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
+    robot_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
                                    '-entity',
                                    LaunchConfiguration('model_name'),
@@ -83,12 +105,20 @@ def generate_launch_description():
                                    ],
                         output='screen')
 
+    robot = conf['ir_robots']['robot']
+
     # Create the launch description and populate
     ld = LaunchDescription()
 
     # ld.add_action(gz_pose)
     ld.add_action(model_name)
-    ld.add_action(tiago_state_publisher)
-    ld.add_action(tiago_entity)
+
+    if 'kobuki' in robot:
+        ld.add_action(joint_state_publisher_node)
+        ld.add_action(robot_model)
+    elif 'tiago' in robot:
+        ld.add_action(tiago_state_publisher)
+    
+    ld.add_action(robot_entity)
 
     return ld

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # Modified by José Miguel Guerrero Hernández
+# Modified by Juan Carlos Manzanares Serrano
 
 import os
 from os import environ, pathsep
@@ -136,14 +137,11 @@ def generate_launch_description():
                     'launch'), '/view_bookstore.launch.py']),
             )
 
-    tiago_spawn = include_launch_py_description(
-        'ir_robots', ['launch', 'dependencies', 'tiago_spawn.launch.py'])
+    robot_spawn = include_launch_py_description(
+        'ir_robots', ['launch', 'dependencies', 'robot_spawn.launch.py'])
 
     tiago_bringup = include_launch_py_description(
         'tiago_bringup', ['launch', 'tiago_bringup.launch.py'])
-
-    kobuki_spawn = include_launch_py_description(
-        'ir_robots', ['launch', 'dependencies', 'kobuki_spawn.launch.py'])
 
     # tuck_arm = Node(package='tiago_gazebo',
     #                 executable='tuck_arm.py',
@@ -192,13 +190,13 @@ def generate_launch_description():
     robot_name = conf['ir_robots']['robot']
     if 'tiago' in robot_name:
         ld.add_action(arm_arg)
-        ld.add_action(tiago_spawn)
+        ld.add_action(robot_spawn)
         ld.add_action(tiago_bringup)
         ld.add_action(moveit_arg)
         ld.add_action(move_group)
         ld.add_action(tuck_arm)
     elif 'kobuki' in robot_name:
-        ld.add_action(kobuki_spawn)
+        ld.add_action(robot_spawn)
     else:
         print(robot_name + ' NOT FOUND')
 

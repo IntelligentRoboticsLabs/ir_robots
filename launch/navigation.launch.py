@@ -13,6 +13,7 @@
 # limitations under the License.
 
 # Modified by José Miguel Guerrero Hernández
+# Modified by Juan Carlos Manzanares Serrano
 
 import os
 import yaml
@@ -78,17 +79,32 @@ def generate_launch_description():
                                    conf['ir_robots']['world']+'.yaml'),
         description='Full path to map yaml file to load')
 
-    declare_use_sim_time_cmd = DeclareLaunchArgument(
-        'use_sim_time',
-        default_value='false',
-        description='Use simulation (Gazebo) clock if true')
+    simulation = conf['ir_robots']['simulation']
 
     declare_params_file_cmd = DeclareLaunchArgument(
         'params_file',
-        default_value=os.path.join(robots_dir,
-                                   'params', 'tiago_nav_params_real.yaml'),
+        default_value=os.path.join(robots_dir, 'params',
+                                   conf['ir_robots']['robot']+'_nav_params_sim.yaml'),
         description='Full path to the ROS2 parameters file to \
                     use for all launched nodes')
+    
+    declare_use_sim_time_cmd = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='True',
+        description='Use simulation (Gazebo) clock if true')
+    
+    if not simulation:
+        declare_params_file_cmd = DeclareLaunchArgument(
+            'params_file',
+            default_value=os.path.join(robots_dir, 'params',
+                                    conf['ir_robots']['robot']+'_nav_params_real.yaml'),
+            description='Full path to the ROS2 parameters file to \
+                        use for all launched nodes')
+        
+        declare_use_sim_time_cmd = DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='False',
+            description='Use simulation (Gazebo) clock if true')
 
     declare_autostart_cmd = DeclareLaunchArgument(
         'autostart', default_value='true',
@@ -153,7 +169,7 @@ def generate_launch_description():
     nav_cmd = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(robots_dir, 'launch', 'dependencies',
-                             'navigation_launch_real.py')),
+                             'navigation_launch.py')),
             launch_arguments={
                 'use_sim_time': use_sim_time,
                 'autostart': autostart,
