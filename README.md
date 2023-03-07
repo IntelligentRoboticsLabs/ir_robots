@@ -140,6 +140,7 @@ ir_robots:
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
+  tiago_arm: no-arm
   kobuki_camera: none
   kobuki_lidar: false
 ...
@@ -183,15 +184,15 @@ source install/setup.sh
 ros2 launch ir_robots kobuki.launch.py
 ``` 
 
-# Run Tiago Navigation in ROS 2
+# Run Navigation in ROS 2
 
 You can use [Nav2] using Tiago in the selected world:
 
 ```bash
 source install/setup.sh
-ros2 launch ir_robots tiago.launch.py
+ros2 launch ir_robots navigation.launch.py
 ``` 
-If simulation param is set to `false`, Navigation2 is ready to use in the real Tiago.
+If simulation param is set to `false`, Navigation2 is ready to use in the real robot.
 
 Also, you can use [Keepout Zones], just create a new map including the excluded areas, and use the same name adding `_keep`, now publish the map running:
 
@@ -236,7 +237,7 @@ ros2 run nav2_map_server map_saver_cli --ros-args -p use_sim_time:=true
 ## About
 
 This is a project made by the [Intelligent Robotics Lab], a research group from the [Universidad Rey Juan Carlos].
-Copyright &copy; 2022.
+Copyright &copy; 2023.
 
 Maintainers:
 
