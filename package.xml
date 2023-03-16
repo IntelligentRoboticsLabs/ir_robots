@@ -10,6 +10,17 @@
 
   <depend>pcl_ros</depend>
   <depend>depth_image_proc</depend>
+  <depend>urdf_test</depend>
+  <depend>tiago_simulation</depend>
+  <depend>tiago_navigation</depend>
+  <depend>tiago_moveit_config</depend>
+  <depend>teleop_tools</depend>
+  <depend>pmb2_robot</depend>
+  <depend>pmb2_navigation</depend>
+  <depend>play_motion2</depend>
+  <depend>pal_gazebo_worlds</depend>
+  <depend>launch_pal</depend>
+  <depend>hey5_description</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

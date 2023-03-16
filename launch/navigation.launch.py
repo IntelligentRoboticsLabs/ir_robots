@@ -25,6 +25,7 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
+from launch_ros.actions import Node
 
 
 def generate_launch_description():
@@ -177,6 +178,14 @@ def generate_launch_description():
                 'use_lifecycle_mgr': 'false',
                 'map_subscribe_transient_local': 'true'
             }.items())
+    
+    tf_odom2map_cmd = Node(package='tf2_ros',
+                                 executable='static_transform_publisher',
+                                 output='screen',
+                                 arguments=['0.0', '0.0', '0.0',
+                                            '0.0', '0.0', '0.0',
+                                            'odom',
+                                            'map'])
 
     # Create the launch description and populate
     ld = LaunchDescription()
@@ -199,5 +208,6 @@ def generate_launch_description():
     ld.add_action(nav_cmd)
     ld.add_action(slam_cmd)
     ld.add_action(localization_cmd)
+    #ld.add_action(tf_odom2map_cmd)
 
     return ld

@@ -68,7 +68,8 @@ def generate_launch_description():
     robot_model = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[{'robot_description': robot_desc}],
+        parameters=[{'robot_description': robot_desc,
+                    'use_sim_time': True}],
         arguments=[urdf_file]
     )
 
@@ -76,7 +77,8 @@ def generate_launch_description():
     joint_state_publisher_node = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
-        name='joint_state_publisher'
+        name='joint_state_publisher',
+        parameters=[{'use_sim_time': True}]
     )
 
     robot_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
@@ -104,6 +106,14 @@ def generate_launch_description():
                                    # LaunchConfiguration('gzpose'),
                                    ],
                         output='screen')
+    
+    tf_footprint2base_cmd = Node(package='tf2_ros',
+                                 executable='static_transform_publisher',
+                                 output='screen',
+                                 arguments=['0.0', '0.0', '0.0',
+                                            '-1.56', '0.0', '-1.56',
+                                            'base_link',
+                                            'base_footprint'])
 
     robot = conf['ir_robots']['robot']
 
@@ -116,6 +126,7 @@ def generate_launch_description():
     if 'kobuki' in robot:
         ld.add_action(joint_state_publisher_node)
         ld.add_action(robot_model)
+        ld.add_action(tf_footprint2base_cmd)
     elif 'tiago' in robot:
         ld.add_action(tiago_state_publisher)
 
