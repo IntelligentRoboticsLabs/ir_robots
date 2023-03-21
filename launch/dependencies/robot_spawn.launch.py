@@ -106,7 +106,7 @@ def generate_launch_description():
                                    # LaunchConfiguration('gzpose'),
                                    ],
                         output='screen')
-    
+
     tf_footprint2base_cmd = Node(package='tf2_ros',
                                  executable='static_transform_publisher',
                                  output='screen',
