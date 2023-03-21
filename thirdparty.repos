@@ -27,10 +27,6 @@ repositories:
     type: git
     url: https://github.com/stonier/ecl_lite.git
     version: devel
-  ThirdParty/hey5_description:
-    type: git
-    url: https://github.com/pal-robotics/hey5_description.git
-    version: humble-devel
   ThirdParty/kobuki_core:
     type: git
     url: https://github.com/kobuki-base/kobuki_core.git
@@ -51,33 +47,13 @@ repositories:
     type: git
     url: https://github.com/ros-perception/laser_filters.git
     version: ros2
-  ThirdParty/launch_pal:
-    type: git
-    url: https://github.com/pal-robotics/launch_pal.git
-    version: master
   ThirdParty/openni2_camera:
     type: git
     url: https://github.com/Juancams/openni2_camera.git
     version: ros2
-  ThirdParty/pal_gazebo_worlds:
-    type: git
-    url: https://github.com/pal-robotics/pal_gazebo_worlds.git
-    version: humble-devel
   ThirdParty/pal_gripper:
     type: git
     url: https://github.com/pal-robotics/pal_gripper.git
-    version: humble-devel
-  ThirdParty/play_motion2:
-    type: git
-    url: https://github.com/pal-robotics/play_motion2.git
-    version: humble-devel
-  ThirdParty/pmb2_navigation:
-    type: git
-    url: https://github.com/pal-robotics/pmb2_navigation.git
-    version: humble-devel
-  ThirdParty/pmb2_robot:
-    type: git
-    url: https://github.com/pal-robotics/pmb2_robot.git
     version: humble-devel
   ThirdParty/ros_astra_camera:
     type: git
@@ -91,27 +67,7 @@ repositories:
     type: git
     url: https://github.com/stonier/sophus.git
     version: release/1.2.x
-  ThirdParty/teleop_tools:
-    type: git
-    url: https://github.com/ros-teleop/teleop_tools.git
-    version: foxy-devel
-  ThirdParty/tiago_moveit_config:
-    type: git
-    url: https://github.com/pal-robotics/tiago_moveit_config.git
-    version: humble-devel
-  ThirdParty/tiago_navigation:
-    type: git
-    url: https://github.com/pal-robotics/tiago_navigation.git
-    version: humble-devel
   ThirdParty/tiago_robot:
     type: git
     url: https://github.com/pal-robotics/tiago_robot.git
-    version: humble-devel
-  ThirdParty/tiago_simulation:
-    type: git
-    url: https://github.com/pal-robotics/tiago_simulation.git
-    version: humble-devel
-  ThirdParty/urdf_test:
-    type: git
-    url: https://github.com/pal-robotics/urdf_test.git
     version: humble-devel

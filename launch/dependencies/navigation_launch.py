@@ -13,8 +13,10 @@
 # limitations under the License.
 
 # Modified by José Miguel Guerrero Hernández
+# Modified by Juan Carlos Manzanares Serrano
 
 import os
+import yaml
 
 from ament_index_python.packages import get_package_share_directory
 
@@ -41,6 +43,17 @@ def generate_launch_description():
     use_respawn = LaunchConfiguration('use_respawn')
     log_level = LaunchConfiguration('log_level')
 
+    config = os.path.join(bringup_dir, 'config', 'params.yaml')
+
+    with open(config, "r") as stream:
+        try:
+            conf = (yaml.safe_load(stream))
+
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    simulation = conf['ir_robots']['simulation']
+
     lifecycle_nodes = ['controller_server',
                        'smoother_server',
                        'planner_server',
@@ -57,8 +70,16 @@ def generate_launch_description():
     # https://github.com/ros/robot_state_publisher/pull/30
     # TODO(orduno) Substitute with `PushNodeRemapping`
     #              https://github.com/ros2/launch_ros/issues/56
+
     remappings = [('/tf', 'tf'),
-                  ('/tf_static', 'tf_static')]
+                  ('/tf_static', 'tf_static'),
+                  ('/cmd_vel', 'nav_vel'),
+                  ('/cmd_vel', 'cmd_vel_nav'),
+                  ('/cmd_vel_smoothed', 'cmd_vel')]
+
+    if not simulation:
+        remappings = [('/tf', 'tf'),
+                      ('/tf_static', 'tf_static')]
 
     # Create our own temporary YAML files that include substitutions
     param_substitutions = {

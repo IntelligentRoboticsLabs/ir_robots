@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Modified by Juan Carlos Manzanares Serrano
+
 import os
 import yaml
 from ament_index_python.packages import (get_package_share_directory,
@@ -146,8 +148,8 @@ def generate_launch_description():
     tf_footprint2base_cmd = Node(package='tf2_ros',
                                  executable='static_transform_publisher',
                                  output='screen',
-                                 arguments=['0.0', '0.0', '0.01',
-                                            '-1.56', '0.0', '-1.56',
+                                 arguments=['0.0', '0.0', '0.001',
+                                            '0.0', '0.0', '0.0', '1.0',
                                             'base_link',
                                             'base_footprint'])
 

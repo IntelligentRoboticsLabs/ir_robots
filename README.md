@@ -9,41 +9,6 @@ This project contains the launchers to run the Tiago robot from [PAL Robotics](h
 **Recommended: use [Eclipse Cyclone DDS](https://docs.ros.org/en/foxy/Installation/DDS-Implementations/Working-with-Eclipse-CycloneDDS.html). 
 You can do this by installing it with `sudo apt install ros-humble-rmw-cyclonedds-cpp` and setting the `RMW_IMPLEMENTATION` environment variable: `export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp`. Add it to your `.bashrc`**
 
-# **IMPORTANT**
-**When you finish installing the package, please go back to this step.**
-
-Because of a small bug in one of the packages, you need to make a change to your ros installation. With the text editor of your choice (we chose nano), edit the `spanwer.py` file in the path we show you.
-```bash
-cd /opt/ros/humble/local/lib/python3.10/dist-packages/controller_manager
-sudo nano spawner.py 
-```
-
-In the code, in line 192 you will find the following:
-```python
-if is_controller_loaded(node, controller_manager_name, prefixed_controller_name):
-    node.get_logger().warn('Controller already loaded, skipping load_controller')
-else:
-    if controller_type:
-        parameter = Parameter()
-        Parameter.name = prefixed_controller_name + '.type'
-        parameter.value = get_parameter_value(string_value=controller_type)
-```
-
-Modify it for this:
-```python
-if is_controller_loaded(node, controller_manager_name, prefixed_controller_name):
-    node.get_logger().warn('Controller already loaded, skipping load_controller')
-else:
-    if controller_type:
-        parameter = Parameter()
-        parameter.name = prefixed_controller_name + '.type'
-        parameter.value = get_parameter_value(string_value=controller_type)
-```
-
-```bash
-source /opt/ros/humble/setup.bash
-```
-
 # Installation on your own computer
 You need to have previously installed ROS2. Please follow this [guide](https://docs.ros.org/en/humble/Installation.html) if you don't have it.
 ```bash
@@ -140,6 +105,7 @@ ir_robots:
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
+  tiago_arm: no-arm
   kobuki_camera: none
   kobuki_lidar: false
 ...
@@ -183,15 +149,15 @@ source install/setup.sh
 ros2 launch ir_robots kobuki.launch.py
 ``` 
 
-# Run Tiago Navigation in ROS 2
+# Run Navigation in ROS 2
 
 You can use [Nav2] using Tiago in the selected world:
 
 ```bash
 source install/setup.sh
-ros2 launch ir_robots tiago.launch.py
+ros2 launch ir_robots navigation.launch.py
 ``` 
-If simulation param is set to `false`, Navigation2 is ready to use in the real Tiago.
+If simulation param is set to `false`, Navigation2 is ready to use in the real robot.
 
 Also, you can use [Keepout Zones], just create a new map including the excluded areas, and use the same name adding `_keep`, now publish the map running:
 
@@ -236,7 +202,7 @@ ros2 run nav2_map_server map_saver_cli --ros-args -p use_sim_time:=true
 ## About
 
 This is a project made by the [Intelligent Robotics Lab], a research group from the [Universidad Rey Juan Carlos].
-Copyright &copy; 2022.
+Copyright &copy; 2023.
 
 Maintainers:
 
