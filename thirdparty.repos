@@ -3,10 +3,6 @@ repositories:
     type: git
     url: https://github.com/aws-robotics/aws-robomaker-bookstore-world.git
     version: ros2
-  ThirdParty/aws-robomaker-hospital-world:
-    type: git
-    url: https://github.com/jmguerreroh/aws-robomaker-hospital-world.git
-    version: ros2
   ThirdParty/aws-robomaker-racetrack-world:
     type: git
     url: https://github.com/jmguerreroh/aws-robomaker-racetrack-world.git
