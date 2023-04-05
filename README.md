@@ -77,11 +77,14 @@ cd <ros2-workspace>/src/
 git clone https://github.com/IntelligentRoboticsLabs/ir_robots.git
 vcs import < ir_robots/thirdparty.repos
 
-touch ../ThirdParty/ros_astra_camera/astra_camera/COLCON_IGNORE
-touch ../ThirdParty/ros_astra_camera/astra_camera_msgs/COLCON_IGNORE
-touch ../ThirdParty/kobuki_ftdi/COLCON_IGNORE
-touch ../ThirdParty/ecl_lite/COLCON_IGNORE
-touch ../ThirdParty/ecl_core/COLCON_IGNORE
+touch ThirdParty/ros_astra_camera/astra_camera/COLCON_IGNORE
+touch ThirdParty/ros_astra_camera/astra_camera_msgs/COLCON_IGNORE
+touch ThirdParty/kobuki_ros/kobuki_node/COLCON_IGNORE
+touch ThirdParty/kobuki_ros/kobuki_auto_docking/COLCON_IGNORE
+touch ThirdParty/kobuki_core/COLCON_IGNORE
+touch ThirdParty/kobuki_ftdi/COLCON_IGNORE
+touch ThirdParty/ecl/ecl_core/COLCON_IGNORE
+touch ThirdParty/ecl/ecl_lite/COLCON_IGNORE
 
 source /opt/ros/<ros2-distro>/setup.bash
 cd <ros2-workspace>
