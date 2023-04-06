@@ -85,6 +85,8 @@ touch ThirdParty/kobuki_core/COLCON_IGNORE
 touch ThirdParty/kobuki_ftdi/COLCON_IGNORE
 touch ThirdParty/ecl/ecl_core/COLCON_IGNORE
 touch ThirdParty/ecl/ecl_lite/COLCON_IGNORE
+touch ThirdParty/openni2_camera/openni2_camera_msgs/COLCON_IGNORE
+touch ThirdParty/openni2_camera/openni2_camera/COLCON_IGNORE
 
 source /opt/ros/<ros2-distro>/setup.bash
 cd <ros2-workspace>
