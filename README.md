@@ -156,7 +156,7 @@ ros2 launch ir_robots kobuki.launch.py
 
 # Run Navigation in ROS 2
 
-You can use [Nav2] using Tiago in the selected world:
+You can use [Nav2] using robot in the selected world in your `config/params.yaml`:
 
 ```bash
 source install/setup.sh
@@ -171,40 +171,26 @@ source install/setup.sh
 ros2 launch ir_robots keepzone.launch.py
 ``` 
 
-Just some AWS worlds are included. You can [Navigate While Mapping] and create your own map using the [SLAM Toolbox]. In different terminals:
+Just some AWS worlds are included.
 
-* Run the SLAM Toolbox:
-
-```bash
-ros2 launch slam_toolbox online_async_launch.py slam_params_file:=install/ir_robots/share/ir_robots/params/mapper_params_online_async.yaml use_sim_time:=true
-```
-You can load params/mapper_params_online_async.yaml to use directly in the real Tiego, but you change scan_topic from /scan to /scan_raw if you want to use the simulated Tiago.
-
-* Activate the map server:
+# Run the SLAM
+## Launch SLAM
+If you want to make your own map, set slam parameter to true in the `config/params.yaml`:
 
 ```bash
-ros2 launch nav2_map_server map_saver_server.launch.py
-```
+source install/setup.sh
+ros2 launch ir_robots navigation.launch.py
+``` 
 
-* Check the map in RViz:
-
-```bash
-rviz2 --ros-args -p use_sim_time:=true
-```
-
-* Move the simulated Tiago (or use the controller in the real Tiago):
-
-```bash
-ros2 run key_teleop key_teleop
-```
-
-* Save the map:
-
+## Save the map
 ```bash
 ros2 run nav2_map_server map_saver_cli --ros-args -p use_sim_time:=true
 ```
 
-## About
+## Load the new map
+Move the map to the `maps/` folder inside the package. Then remember to rename it and modify the name inside the yaml. Finally, modify the world parameter, adding the name of your new map.
+
+# About
 
 This is a project made by the [Intelligent Robotics Lab], a research group from the [Universidad Rey Juan Carlos].
 Copyright &copy; 2023.

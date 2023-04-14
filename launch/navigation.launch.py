@@ -58,11 +58,17 @@ def generate_launch_description():
         'use_namespace',
         default_value='false',
         description='Whether to apply a namespace to the navigation stack')
-
+    
     declare_slam_cmd = DeclareLaunchArgument(
         'slam',
-        default_value='False',
+        default_value='True',
         description='Whether run a SLAM')
+
+    if not slam:
+        declare_slam_cmd = DeclareLaunchArgument(
+            'slam',
+            default_value='False',
+            description='Whether run a SLAM')
 
     config = os.path.join(robots_dir, 'config', 'params.yaml')
 

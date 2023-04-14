@@ -48,6 +48,7 @@ ir_robots:
   simulation: true
   world: aws_house
   robot: tiago
+  slam: false
   robot_position:
     x: 0.0
     y: 0.0
