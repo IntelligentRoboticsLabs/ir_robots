@@ -58,17 +58,6 @@ def generate_launch_description():
         'use_namespace',
         default_value='false',
         description='Whether to apply a namespace to the navigation stack')
-    
-    declare_slam_cmd = DeclareLaunchArgument(
-        'slam',
-        default_value='True',
-        description='Whether run a SLAM')
-
-    if not slam:
-        declare_slam_cmd = DeclareLaunchArgument(
-            'slam',
-            default_value='False',
-            description='Whether run a SLAM')
 
     config = os.path.join(robots_dir, 'config', 'params.yaml')
 
@@ -85,6 +74,7 @@ def generate_launch_description():
                                    conf['ir_robots']['world']+'.yaml'),
         description='Full path to map yaml file to load')
 
+    slam_param = conf['ir_robots']['slam']
     simulation = conf['ir_robots']['simulation']
 
     declare_params_file_cmd = DeclareLaunchArgument(
@@ -98,6 +88,18 @@ def generate_launch_description():
         'use_sim_time',
         default_value='True',
         description='Use simulation (Gazebo) clock if true')
+    
+    declare_slam_cmd = DeclareLaunchArgument(
+        'slam',
+        default_value='True',
+        description='Whether run a SLAM')
+
+    if not slam_param:
+        print("hola")
+        declare_slam_cmd = DeclareLaunchArgument(
+            'slam',
+            default_value='False',
+            description='Whether run a SLAM')
 
     if not simulation:
         declare_params_file_cmd = DeclareLaunchArgument(

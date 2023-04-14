@@ -43,12 +43,13 @@
 # Tiago arm: no-arm - right-arm
 # Kobuki camera: none - xtion - astra
 # Kobuki lidar: true - false
+# Slam: true - false
 
 ir_robots:
   simulation: true
-  world: aws_house
-  robot: tiago
   slam: false
+  world: lab
+  robot: tiago
   robot_position:
     x: 0.0
     y: 0.0
@@ -58,4 +59,4 @@ ir_robots:
     yaw: 0.0
   tiago_arm: no-arm
   kobuki_camera: none
-  kobuki_lidar: false
+  kobuki_lidar: true
