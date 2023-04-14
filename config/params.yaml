@@ -43,7 +43,7 @@
 # Tiago arm: no-arm - right-arm
 # Kobuki camera: none - xtion - astra
 # Kobuki lidar: true - false
-# Slam: true - false
+# Slam: True - False
 
 ir_robots:
   simulation: true
