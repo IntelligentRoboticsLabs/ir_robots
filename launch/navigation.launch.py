@@ -74,7 +74,6 @@ def generate_launch_description():
                                    conf['ir_robots']['world']+'.yaml'),
         description='Full path to map yaml file to load')
 
-    slam_param = conf['ir_robots']['slam']
     simulation = conf['ir_robots']['simulation']
 
     declare_params_file_cmd = DeclareLaunchArgument(
@@ -91,15 +90,9 @@ def generate_launch_description():
     
     declare_slam_cmd = DeclareLaunchArgument(
         'slam',
-        default_value='True',
-        description='Whether run a SLAM')
-
-    if not slam_param:
-        print("hola")
-        declare_slam_cmd = DeclareLaunchArgument(
-            'slam',
-            default_value='False',
-            description='Whether run a SLAM')
+        default_value=str(conf['ir_robots']['slam']),
+        description='Slam'
+    )
 
     if not simulation:
         declare_params_file_cmd = DeclareLaunchArgument(
