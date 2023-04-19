@@ -87,7 +87,7 @@ def generate_launch_description():
         'use_sim_time',
         default_value='True',
         description='Use simulation (Gazebo) clock if true')
-    
+
     declare_slam_cmd = DeclareLaunchArgument(
         'slam',
         default_value=str(conf['ir_robots']['slam']),
